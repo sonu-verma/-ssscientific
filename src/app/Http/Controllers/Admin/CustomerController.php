@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     public function getCustomers(){
-        $customers = User::where()->get()->all();
+        $customers = User::where('status',1)->get()->all();
         return view('admin.customers.index',[
             'customers' => $customers
         ]);

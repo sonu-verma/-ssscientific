@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\QuoteController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\RolesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +45,12 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(CustomerController::class)->group(function () {
         Route::get('/customers','getCustomers')->name('customers');
         Route::get('/ajax/customers','getCustomers')->name('ajax.customers');
+    });
+    Route::controller(RolesController::class)->group(function () {
+        Route::get('/roles','index')->name('roles');
+    });
+    Route::controller(RolesController::class)->group(function () {
+        Route::get('/categories','index')->name('categories');
     });
 });
 

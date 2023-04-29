@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Customers</h1>
+                    <h1>Roles</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Customers</li>
+                        <li class="breadcrumb-item active">Roles</li>
                     </ol>
                 </div>
             </div>
@@ -30,28 +30,24 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="customersTable" class="table table-bordered table-striped">
+                            <table id="rolesTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th class="subj_name">Id</th>
                                         <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($customers as $customer)
+                                    @foreach($roles as $role)
                                     <tr>
-                                            <td class="subj_name">{{ $customer->id }}</td>
-                                            <td>{{ $customer->full_name }}</td>
-                                            <td>{{ $customer->email }}</td>
-                                            <td>{{ $customer->phone_number }}</td>
-                                            <td>{{ $customer->status }}</td>
-                                            <td>{{ $customer->created_at }}</td>
-                                            <td>Action</td>
+                                        <td class="subj_name">{{ $role->id }}</td>
+                                        <td>{{ $role->role_name }}</td>
+                                        <td>{{ $role->status }}</td>
+                                        <td>{{ $role->created_at }}</td>
+                                        <td>Action</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -72,10 +68,10 @@
 @section('pageScript')
 <script>
   $(function () {
-    $("#customersTable").DataTable({
+    $("#rolesTable").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
     //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#customersTable_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#rolesTable_wrapper .col-md-6:eq(0)');
   });
 </script>
 @endsection
