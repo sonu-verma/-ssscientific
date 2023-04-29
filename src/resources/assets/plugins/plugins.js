@@ -1,0 +1,1 @@
+alert('inside plugin folder');
