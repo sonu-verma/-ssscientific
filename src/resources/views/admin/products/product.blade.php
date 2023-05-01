@@ -15,7 +15,6 @@
                     <th>SKU</th>
                     <th>Combination</th>
                     <th>Quantity</th>
-                    <th>No. Of Box</th>
                     <th>Asset Value</th>
                     <th>{{--Action--}}</th>
                 </tr>
@@ -30,7 +29,6 @@
                                 Info
                             </td>
                             <td><input type="text" class="form-control _Qty" value="1" style="width:50px;"></td>
-                            <td><input type="text" class="form-control _NoOfBox" value="1"></td>
                             <td><input type="text" class="form-control _AssetValue" value=""></td>
                             <td>
                                 <button type="button"

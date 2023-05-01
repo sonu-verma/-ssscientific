@@ -234,6 +234,7 @@ class QuoteController extends Controller
             $tblUser . '.id as id_user',
             $tblUser . '.first_name',
             $tblUser . '.last_name',
+            $tblUser . '.email',
 //            $tblUser . '.last_name',
         ];
         $source = Quote::select($selectColumns)
