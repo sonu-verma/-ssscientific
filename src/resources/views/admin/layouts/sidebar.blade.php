@@ -74,7 +74,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('customers') }}" class="nav-link">
+                            <a href="{{ route('products') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Products</p>
                             </a>

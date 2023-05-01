@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('cust_id')->nullable();
             $table->string('phone_number', 50)->nullable()->unique();
             $table->string('email', 50)->nullable()->unique();
-            $table->text('property_address');
+//            $table->text('property_address')->nullable();
             $table->text('address');
             $table->string('apt_no', 255)->nullable();
             $table->string('zipcode', 255)->nullable();
@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('referral', 50)->nullable();
             $table->string('referral_agency', 50)->nullable();
             $table->string('is_enquired', 50)->nullable();
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->integer('status')->nullable();
             $table->integer('approved_by')->nullable();
             $table->integer('approved_at')->nullable();

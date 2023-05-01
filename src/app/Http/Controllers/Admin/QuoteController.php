@@ -59,7 +59,7 @@ class QuoteController extends Controller
             $quotes = Quote::where('quote_no',$request->input('quote_no'))->get()->first();
         }else{
             $quotes = new Quote();
-            $quotes->created_at = time();
+            $quotes->created_at = date('Y-m-d h:i:s');
         }
 
         $customerEmail = $request->input('email');
@@ -214,7 +214,8 @@ class QuoteController extends Controller
         });
 
         $tblQuote = Quote::getTableName();
-        $tblUser = 'users';
+//        $tblUser = 'users';
+        $tblUser = User::getTableName();
 
         $selectColumns = [
             $tblQuote . '.id',
@@ -231,7 +232,8 @@ class QuoteController extends Controller
             $tblQuote . '.created_at',
             $tblQuote . '.property_address',
             $tblUser . '.id as id_user',
-            $tblUser . '.name',
+            $tblUser . '.first_name',
+            $tblUser . '.last_name',
 //            $tblUser . '.last_name',
         ];
         $source = Quote::select($selectColumns)
@@ -250,7 +252,8 @@ class QuoteController extends Controller
                     ->orWhere($tblQuote . '.city', 'LIKE', '%' . $searchTerm . '%')
                     ->orWhere($tblUser . '.email', 'LIKE', '%' . $searchTerm . '%')
 //                    ->orWhere($tblUser . '.first_name', 'LIKE', '%' . $searchTerm . '%')
-                    ->orWhere($tblUser . '.name', 'LIKE', '%' . $searchTerm . '%');
+                    ->orWhere($tblUser . '.first_name', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere($tblUser . '.last_name', 'LIKE', '%' . $searchTerm . '%');
             });
         }
         if($quote_status != 'All'){
@@ -285,8 +288,7 @@ class QuoteController extends Controller
                 $download_proposal = '<br> <a href="'.route('proposal.downloadProposa',['token' => $property->token,'type' => 'pdf','quoteNo'=>$property->quote_no]).'">Download Proposal</a>';
             }
 
-            $client_name = $property->name;
-//            .' '.$property->last_name;
+            $client_name = $property->first_name.' '.$property->last_name;
 
             if($property->backOrder && $property->backOrder->signedProposal &&  $property->backOrder->signedProposal->signed_document_path && $property->status == 8){
                 Quote::where('token',$property->token)->update(['status' => Quote::AGREEMENT_SIGNED]);
@@ -317,7 +319,7 @@ class QuoteController extends Controller
                 'quote_no' => $property->quote_no.$order_reference.$download_proposal,
                 'cust_info' => '<a href="" target="_blank">'.$client_name.'</a><br>'.$property->email.'<br>'.$property->phone_number,
                 'status' => $statusType,
-                'created_at' => __datetime($property->created_at),
+                'created_at' => $property->created_at,
                 'controls' =>  table_buttons($buttons, false)
             ];
         }

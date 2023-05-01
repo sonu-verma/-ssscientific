@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/quote/downloadQuote', 'downloadQuote')->name('quote.download');
     });
     Route::controller(ProductController::class)->group(function () {
+        Route::get('/products','index')->name('products');
         Route::get('/product','getProduct')->name('getProduct');
     });
     Route::controller(CustomerController::class)->group(function () {

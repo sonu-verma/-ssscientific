@@ -26,6 +26,8 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $appends = ['full_name'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -48,5 +50,16 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public static function getTableName($alias = '')
+    {
+        $table = with(new static)->getTable();
+        if($alias!==''){
+            $parts = explode('as', $table);
+            $_table = trim($parts[0]).' as '.$alias;
+            return $_table;
+        }
+        return $table;
     }
 }

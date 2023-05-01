@@ -21,7 +21,7 @@ class Quote extends BaseModel
     const AGREEMENT_SIGNED = 9;
 
     protected $table = 'quotes';
-    protected $dateFormat = 'U';
+//    protected $dateFormat = 'U';
     protected $fillable = [
         'quote_no',
         'token',
