@@ -11,6 +11,7 @@ WORKDIR /var/www/html
 RUN apt-get update && \
     apt-get install -y \
         libpng-dev \
+        libjpeg-dev \
         zlib1g-dev \
         libxml2-dev \
         libzip-dev \
@@ -18,8 +19,8 @@ RUN apt-get update && \
         zip \
         curl \
         unzip && \
-    docker-php-ext-configure gd && \
-    docker-php-ext-install -j$(nproc) gd && \
+    docker-php-ext-configure gd --with-jpeg && \
+    docker-php-ext-install gd && \
     docker-php-ext-install mysqli pdo_mysql zip && \
     a2enmod rewrite && \
     apt-get clean && \

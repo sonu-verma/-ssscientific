@@ -66,7 +66,6 @@ var quote = {
     searchProduct:function (e) {
         alert('eres');
         var sku = $(e).val();
-        sku = 'test'
         if(sku=='' || sku==null){
             return false;
         }
@@ -84,6 +83,65 @@ var quote = {
             // purchase.enableSubmit();
         });
         return false;
+    },
+}
+
+var itemlist = {
+    add:function (e, url, combination_sku,product_sku) {
+        var $tr = $(e).closest('tr');
+
+        if($tr.find('._Qty').val()==''){
+            messages.error('Required','Please enter qty of product');
+            $tr.find('._Qty').focus();
+            return;
+        }
+        if($tr.find('._AssetValue').val()==''){
+            messages.error('Required','Please enter purchase cost');
+            $tr.find('._AssetValue').focus();
+            return;
+        }
+
+        var productId = $tr.find('._productId').val();
+        var qty = $tr.find('._Qty').val();
+        var assetValue=$tr.find('._AssetValue').val();
+        var originalAssetValue=$('._originalAssetValue').val();
+
+        $.post(url, {
+            quote_id: $('#quote_id').val(),
+            productId: productId,
+            quantity: qty,
+            assetValue:assetValue,
+            originalAssetValue:originalAssetValue
+        }, function(data){
+            console.log('data ',data);
+            return false;
+            messages.saved('','Item added successfully');
+            itemlist.refreshView();
+        });
+
+    },
+    refreshView:function(url, e){
+        // if(typeof url === typeof undefined){
+        //     url = itemsUrl;
+        // }
+        if(typeof e === typeof undefined || !$(e).length){
+            e = '.cartItemsBlock';
+        }
+        var quote_id = $('#quote_id').val();
+        itemsUrl = '/quote/items/'+quote_id;
+        $.get(itemsUrl, function(data){
+            $(e).html(data.html);
+        });
+    },
+    deleteRow:function(e, url, productinventoryid){
+        if(confirm('Are you sure want to delete this Product? If you delete this product, it cannot be restored.')) {
+            $.post(url, {
+                productinventoryid: productinventoryid
+            }, function (data) {
+                messages.saved('', 'Item deleted successfully');
+                itemlist.refreshView();
+            });
+        }
     },
 }
 $(document).on('click','#quoteFormBtn',function(e){
@@ -138,7 +196,6 @@ $(document).on('click','#quoteFormBtn',function(e){
         }
     });
 });
-
 function fillBillingAddress(){
 
     if($("#billingChk").prop('checked') == true){
@@ -165,4 +222,162 @@ function fillBillingAddress(){
 
 $(function (){
     quote.init();
+    initializeCustomerSelect2();
+    initializeProductSelect2();
+    itemlist.refreshView();
 });
+
+function initializeCustomerSelect2(){
+    $('#quoteCustomer').select2({
+        ajax: {
+            url: "/user/details",
+            dataType: 'json',
+            delay: 250,
+            method: 'post',
+            data: function (params) {
+                return {
+                    term: params.term
+                };
+            },
+            processResults: function (data, params) {
+                console.log('data',data);
+                console.log('params',params);
+                // parse the results into the format expected by Select2
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data, except to indicate that infinite
+                // scrolling can be used
+                params.page = params.page || 1;
+
+                return {
+                    results: data.data,
+                    pagination: {
+                        page: (params.page * data.per_page) < data.total
+                    }
+                };
+            },
+            cache: false
+        },
+        minimumInputLength: 1,
+        dropdownParent: $('#quoteForm'),
+        templateResult: function (user) {
+            console.log('user',user);
+            if (!user.id) {
+                return user.first_name + ' ' + user.last_name;
+            }
+            var $state = $(
+                '<span clas="user-list">' + user.first_name + ' ' + user.last_name + '(<em>' + user.email + '</em>)</span>'
+            );
+            return $state;
+        },
+        templateSelection: function (user) {
+            console.log('user 1',user);
+            if (!user.id) {
+                return 'Select User';
+            }
+            var $state = $(
+                '<span>' + user.full_name + ' (' + user.email + ')</span>'
+            );
+            if (typeof user.full_name === typeof undefined && typeof user.email === typeof undefined) {
+                $state = $(
+                    '<span>' + user.text + '</span>'
+                );
+            }
+
+            return $state;
+        }
+    });
+}
+
+function initializeProductSelect2(){
+    $('#ddlProducts').select2({
+        ajax: {
+            url: "/ajax/products",
+            dataType: 'json',
+            delay: 250,
+            method: 'get',
+            data: function (params) {
+                return {
+                    term: params.term
+                };
+            },
+            processResults: function (data, params) {
+                console.log('data',data);
+                console.log('params',params);
+                // parse the results into the format expected by Select2
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data, except to indicate that infinite
+                // scrolling can be used
+                params.page = params.page || 1;
+
+                return {
+                    results: data.data,
+                    pagination: {
+                        page: (params.page * data.per_page) < data.total
+                    }
+                };
+            },
+            cache: false
+        },
+        minimumInputLength: 1,
+        dropdownParent: $('#productForm'),
+        templateResult: function (product) {
+            console.log('product',product);
+            if (!product.id) {
+                return product.name;
+            }
+            var $state = $(
+                '<span clas="user-list">' + product.name + '</span>'
+            );
+            return $state;
+        },
+        templateSelection: function (product) {
+            console.log('user 1',product);
+            if (!product.id) {
+                return 'Select Product';
+            }
+            var $state = $(
+                '<span>' + product.name + '</span>'
+            );
+            if (typeof product.name === typeof undefined) {
+                $state = $(
+                    '<span>' + product.text + '</span>'
+                );
+            }
+
+            return $state;
+        }
+    });
+}
+
+function getUserDetails(val,type, isUpdate = false){
+    $.ajax({
+        type: 'get',
+        url: "/user/info",
+        data: {id:val},
+        success: function (data) {
+            console.log('data',data)
+            if(data.email){
+                $('#email').val(data.email);
+            }
+            if(data.phone_number){
+                $('#phone_number').val(data.phone_number);
+            }
+        }
+    });
+}
+function searchProduct(val,type, isUpdate = false){
+    var sku = val;
+    if(sku=='' || sku==null){
+        return false;
+    }
+    $('.productResultContainer').html('<p>Loading...</p>');
+    $.ajax({
+        type: 'get',
+        url: "/ajax/product",
+        data: {id:val},
+        success: function (data) {
+            console.log('data',data)
+            $('.productResultContainer').html(data);
+        }
+    });
+}

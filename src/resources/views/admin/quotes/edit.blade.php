@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">DataTables</li>
+                        <li class="breadcrumb-item active">Quote</li>
                     </ol>
                 </div>
             </div>
@@ -29,28 +29,38 @@
                         <div class="card-body">
                             <form name="quoteForm" id="quoteForm" action="{{ route('quote.update',['quote' => $model->id]) }}" method="POST" autocomplete="off">
                                 {{ csrf_field() }}
-                                <input type="hidden" name="quote_id" value="{{ $model->id }}">
+                                <input type="hidden" id="quote_id" name="quote_id" value="{{ $model->id }}">
                                 <h6 class="title_in_caps" style="margin-bottom: 9px !important;">Customer Information:</h6>
                                 <div class="proposal-boxx--View">
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="text-align: left;margin-top: 9px;">
                                             <label class="">Select Primary Customer<span class="validateClass">*</span></label>
-                                            {{--                                            <select data-resource="user" style="width: 100%;" name="id_user" id="ddlUser" data-parent="#addQuote"--}}
-                                            {{--                                                    onchange="return getUserDetails(this.value,1)"  --}}
-                                            {{--                                                    required>--}}
-                                            {{--                                                <option value="">Select customer</option>--}}
-                                            {{--                                                <option value="1">Sonu Verma</option>--}}
-                                            {{--                                            </select>--}}
-                                            <select class="form-control select2bs4"  data-resource="user" style="width: 100%;" name="id_user" id="ddlUser" data-parent="#addQuote" style="width: 100%;">
-                                                <option value="2" >Alaska</option>
-                                                <option value="1" {{ $model->id_user == 1?'selected':'' }}>Alaska</option>
+                                            <select data-resource="user"
+                                                    class="form-control"
+                                                    style="width: 100%;"
+                                                    name="id_user"
+                                                    id="quoteCustomer"
+                                                    data-parent="#quoteForm"
+                                                    onchange="return getUserDetails(this.value,1)"
+                                                    required>
+                                                <option value="">Select customer</option>
+                                                @if(isset($model->user))
+                                                    <option value="{{$model->user->id}}"
+                                                            selected>{{$model->user->getFullname()}}
+                                                        ({{$model->user->email}})
+                                                    </option>
+                                                @endif
                                             </select>
+{{--                                            <select data-resource="user" style="width: 100%;" name="id_user" id="ddlUser" data-parent="#addQuote" style="width: 100%;">--}}
+{{--                                                <option value="2" >Alaska</option>--}}
+{{--                                                <option value="1" {{ $model->id_user == 1?'selected':'' }}>Alaska</option>--}}
+{{--                                            </select>--}}
                                         </div>
                                     </div>
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4">
                                             <label for="phone_number">Phone Number:</label>
-                                            <input type="number" name="phone_number" id="phone_number" class="form-control fixedOption"  value="{{ $model->phone_number }}" required>
+                                            <input type="text" name="phone_number" id="phone_number" class="form-control fixedOption"  value="{{ $model->phone_number }}" required>
                                         </div>
                                         <div class="col-md-4" style="margin-top: 2px;">
                                             <label for="email">E-Mail Address:<span class="validateClass">*</span></label>
@@ -203,18 +213,13 @@
                             <h5>Add Product</h5>
                         </div>
                         <div class="card-body">
-                            <form name="quoteForm" id="quoteForm" action="{{ route('quote.create') }}" method="POST" autocomplete="off">
+                            <form name="productForm" id="productForm" action="{{ route('quote.create') }}" method="POST" autocomplete="off">
                                 {{ csrf_field() }}
                                 <div class="proposal-boxx--View">
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-6" style="text-align: left;">
-                                            <select class="form-control select2bs4" data-resource="product" data-parent="#addQuote" style="width: 100%;" name="sku" id="ddlProducts" onchange="quote.searchProduct(this)" data-action="{{ route('getProduct') }}">
-                                                <option value="1">Alaska</option>
-                                                <option value="1">California</option>
-                                                <option value="1">Delaware</option>
-                                                <option value="1">Tennessee</option>
-                                                <option value="1">Texas</option>
-                                                <option value="1">Washington</option>
+                                            <select class="form-control select2bs4" data-resource="product" data-parent="#addProduct" style="width: 100%;" name="sku" id="ddlProducts" onchange="return searchProduct(this.value,1)">
+                                                <option value="">Select Product</option>
                                             </select>
                                         </div>
                                     </div>
@@ -235,85 +240,7 @@
                         </div>
                         <div class="card-block">
                             <div class="cartItemsBlock">
-                                <table class="productSummaryTable table">
-                                    <thead>
-                                    <tr>
-                                        <th style="width: 70px;">
 
-                                        </th>
-                                        <th>
-                                            Product
-                                        </th>
-                                        <th class="text-right">
-                                            Asset Value
-                                        </th>
-                                        <th class="text-right">
-                                            Price
-                                            <small>/mo</small>
-                                        </th>
-                                        <th class="text-right">
-                                            Discount
-                                            <small>/mo</small>
-                                        </th>
-                                        <th class="text-right" style="width: 125px;">
-                                            Sale Price
-                                            <small>/mo</small>
-                                        </th>
-                                        <th class="text-right" style="width: 75px;">
-                                            Months
-                                        </th>
-                                        <th class="text-right" style="width: 75px">
-                                            Qty
-                                        </th>
-                                        <th class="text-right" style="width: 125px;">
-                                            Total
-                                        </th>
-                                        <th class="text-right" width="7%"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="strong-line">
-                                        <td colspan="9"></td>
-                                    </tr>
-                                    <tr class="table-summary">
-
-                                        <td colspan="2" class="text-right" style="padding: 0;">
-                                        </td>
-                                        <td colspan="6" class="text-right">Sub Total</td>
-                                        <td class="text-right">
-                                            $0<br>
-                                        </td>
-                                        <input type="hidden" name="old_order_sub_total" id="old_order_sub_total" value="0">
-                                        <td></td>
-                                    </tr>
-
-                                    <tr class="table-summary">
-                                        <td colspan="5">
-                                        </td>
-                                        <td colspan="3" class="text-right">(+)Sales Tax(10.25%)
-                                            <i class="icofont icofont-info-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Rental/Buy/Sale Furniture Subtotal : $0<br>Sales Tax (10.25%) on Rental/Buy/Sale Furniture : $0<br>Total : $0" data-html="true"></i></td>
-                                        <td class="text-right">$0</td>
-                                        <input type="hidden" name="old_order_sales_tax" id="old_order_sales_tax" value="0">
-                                    </tr>
-                                    <tr class="table-summary">
-
-                                        <td colspan="8" class="text-right"><strong>Total</strong>
-                                            <br>
-                                        </td>
-                                        <td class="text-right">
-                                            <strong>
-                                                $0
-                                                <input type="hidden" value="0" id="totalOrderAmount">
-                                            </strong>
-                                            <span class="affirm_price_span" style="display: none"><br><b>$0/mo</b><br>(for 3 months)</span>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="table-summary">
-
-                                    </tr>
-                                    </tbody>
-                                </table>
                             </div>
                             <div class="btnRowList">
                                 <button class="btn pull-right m-l-10 btn btn-success"
@@ -326,8 +253,7 @@
                                         type="button" data-toggle="modal" data-target="#confirmApprovalModal">Approve Proposal
                                 </button>
                                 <a class="btn btn-primary pull-right m-l-10" id="proposalDownload1"
-                                   target="_blank">Download
-                                    Proposal</a>
+                                   target="_blank" href="{{ route('quote.download',['quote_id' => $model->id]) }}">Download Proposal</a>
                                 <button class="btn pull-right m-l-10 btn btn-success"
                                         type="button">Send Proposal to Customer
                                 </button>
@@ -345,8 +271,8 @@
 @section('pageScript')
     <script src="{{ asset('/js/pages/quote.js') }}"></script>
     <script>
-        $('.select2bs4').select2({
-            theme: 'bootstrap4'
-        })
+        // $('.select2bs4').select2({
+        //     theme: 'bootstrap4'
+        // })
     </script>
 @endsection

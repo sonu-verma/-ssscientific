@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('description');
             $table->text('features');
             $table->integer('status');
+            $table->integer('sale_price');
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_reusable')->default(false);
 //            $table->foreign('id_category')->references('id')->on('categories');

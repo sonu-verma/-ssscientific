@@ -62,4 +62,8 @@ class User extends Authenticatable
         }
         return $table;
     }
+
+    public function getFullName(){
+        return trim($this->first_name.' '.$this->last_name);
+    }
 }

@@ -73,4 +73,9 @@ class Quote extends BaseModel
         return implode(', ', $array).' '.$this->zip_code;
     }
 
+    public function items(){
+        return $this->hasMany(ProductCartItems::class,'quote_id','id')
+            ->with('product');
+    }
+
 }

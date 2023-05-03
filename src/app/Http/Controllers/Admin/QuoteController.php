@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\ProductCartItems;
 use App\Models\Admin\Quote;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class QuoteController extends Controller
@@ -132,10 +134,11 @@ class QuoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Quote $quote)
+    public function edit(Request $request,$id)
     {
+        $quotes = Quote::where('id',$id)->with('user')->get()->first();
         return view('admin.quotes.edit',[
-            'model' => $quote
+            'model' => $quotes
         ]);
     }
 
@@ -230,7 +233,7 @@ class QuoteController extends Controller
             $tblQuote . '.zipcode',
             $tblQuote . '.city',
             $tblQuote . '.created_at',
-            $tblQuote . '.property_address',
+//            $tblQuote . '.property_address',
             $tblUser . '.id as id_user',
             $tblUser . '.first_name',
             $tblUser . '.last_name',
@@ -309,7 +312,7 @@ class QuoteController extends Controller
                 'edit' => [
                     'label' => 'Edit',
                     'attributes' => [
-                        'href' => route('quote.edit', ['quote' => $property->id]),
+                        'href' => route('quote.edit', ['id' => $property->id]),
                     ]
                 ]
             ];
@@ -335,7 +338,41 @@ class QuoteController extends Controller
         return response()->json($output);
     }
 
-    public function downloadQuote(Request $request){
-        dd($request->all());
+    public function downloadQuote(Request $request,$quote_id){
+        ini_set('max_execution_time', -1);
+        ini_set('memory_limit', '2048M');
+//        $quote_id = $request->get('id');
+        $type = $request->get('type');
+        $quote = Quote::where('id',$quote_id)
+            ->with('user')
+            ->with('items')
+            ->get()
+            ->first();
+//        dd($quote);
+        $layout = true;
+        if ($type == 'html') {
+            $layout = false;
+        }
+        $var = [
+            'title' => 'Testing Page Number In Body',
+            'layout' => $layout,
+            'model' => $quote,
+        ];
+        $page = 'admin.pdf.proposal';
+        $prefix='Proposal';
+
+        if($type == 'pdf'){
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadView($page, $var);
+            return $pdf->download(strtoupper($prefix).'-' . $quote->quote_no . '.pdf');
+
+//            $pdf = \App::make('dompdf.wrapper');
+//            $pdf->getDomPDF()->set_option("enable_php", true);
+//            $pdf->loadView($page, $var);
+//            return $pdf->download(strtoupper($prefix).'-'.time().'-' . $quote_id . '.pdf');
+
+        }else{
+            return view($page, $var);
+        }
     }
 }
