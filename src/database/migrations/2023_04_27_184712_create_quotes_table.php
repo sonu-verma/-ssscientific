@@ -38,6 +38,7 @@ return new class extends Migration
             $table->string('referral', 50)->nullable();
             $table->string('referral_agency', 50)->nullable();
             $table->string('is_enquired', 50)->nullable();
+            $table->string('currency_type', 50)->nullable();
             $table->text('notes')->nullable();
             $table->integer('status')->nullable();
             $table->integer('approved_by')->nullable();

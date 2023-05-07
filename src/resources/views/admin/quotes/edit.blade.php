@@ -56,6 +56,19 @@
 {{--                                                <option value="1" {{ $model->id_user == 1?'selected':'' }}>Alaska</option>--}}
 {{--                                            </select>--}}
                                         </div>
+                                        <div class="col-md-4" style="text-align: left;margin-top: 9px;">
+                                            <label class="">Currency Type<span class="validateClass">*</span></label>
+                                            <select class="form-control" style="width: 100%;" name="currency_type" id="currency_type"
+                                                    required>
+                                                <option value="">Select Currency</option>
+                                                @php
+                                                    $currencies = \App\Models\Admin\Quote::CURRENCY_TYPES;
+                                                @endphp
+                                                @foreach($currencies as $key => $currency)
+                                                    <option value="{{ $key }}" {{ ($key == $model->currency_type)?'selected':'' }}>{{ $currency }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4">
@@ -253,7 +266,7 @@
                                         type="button" data-toggle="modal" data-target="#confirmApprovalModal">Approve Proposal
                                 </button>
                                 <a class="btn btn-primary pull-right m-l-10" id="proposalDownload1"
-                                   target="_blank" href="{{ route('quote.download',['quote_id' => $model->id]) }}">Download Proposal</a>
+                                   target="_blank" href="{{ route('quote.download',['quote_id' => $model->id,'type'=>'pdf']) }}">Download Proposal</a>
                                 <button class="btn pull-right m-l-10 btn btn-success"
                                         type="button">Send Proposal to Customer
                                 </button>

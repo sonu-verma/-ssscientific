@@ -84,6 +84,7 @@ class QuoteController extends Controller
         $quotes->referral = $request->input('referral');
         $quotes->referral_agency = $request->input('referral_agency');
         $quotes->is_enquired = $request->input('is_enquired');
+        $quotes->currency_type = $request->input('currency_type');
         $quotes->notes = $request->input('notes');
         $quotes->status = $quoteStatus;
         $quotes->created_by = Auth::user()->id;
@@ -171,6 +172,7 @@ class QuoteController extends Controller
         $quote->referral = $request->input('referral');
         $quote->referral_agency = $request->input('referral_agency');
         $quote->is_enquired = $request->input('is_enquired');
+        $quote->currency_type = $request->input('currency_type');
         $quote->notes = $request->input('notes');
         $quote->created_by = Auth::user()->id;
         $quote->save();
@@ -359,17 +361,13 @@ class QuoteController extends Controller
             'model' => $quote,
         ];
         $page = 'admin.pdf.proposal';
-        $prefix='Proposal';
+        $prefix='Quote';
 
         if($type == 'pdf'){
             $pdf = \App::make('dompdf.wrapper');
+            $pdf->getDomPDF()->set_option("enable_php", true);
             $pdf->loadView($page, $var);
-            return $pdf->download(strtoupper($prefix).'-' . $quote->quote_no . '.pdf');
-
-//            $pdf = \App::make('dompdf.wrapper');
-//            $pdf->getDomPDF()->set_option("enable_php", true);
-//            $pdf->loadView($page, $var);
-//            return $pdf->download(strtoupper($prefix).'-'.time().'-' . $quote_id . '.pdf');
+            return $pdf->download(strtoupper($prefix).'-'.time().'-' . $quote_id . '.pdf');
 
         }else{
             return view($page, $var);

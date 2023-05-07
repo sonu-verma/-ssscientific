@@ -20,6 +20,11 @@ class Quote extends BaseModel
     const DOCUSIGN_SENT = 8;
     const AGREEMENT_SIGNED = 9;
 
+    const CURRENCY_TYPES = [
+        "INR" => "INR",
+        "USD" => "USD",
+    ];
+
     protected $table = 'quotes';
 //    protected $dateFormat = 'U';
     protected $fillable = [
@@ -45,6 +50,7 @@ class Quote extends BaseModel
         'referral',
         'referral_agency',
         'is_enquired',
+        'currency_type',
         'notes',
         'status',
         'approved_by',

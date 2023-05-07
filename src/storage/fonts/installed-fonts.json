@@ -1,0 +1,20 @@
+{
+    "poppins": {
+        "normal": "poppins-normal_1b7da569cba2e7458df6ef20a6b7b001"
+    },
+    "poppins light": {
+        "normal": "poppins-light-normal_643c5e85dc3e1c7455d7ee927c5da833"
+    },
+    "poppins medium": {
+        "500": "poppins-medium-500_b9c1d8f0cbede91f0ee7bdf94608e4f9"
+    },
+    "poppins semibold": {
+        "600": "poppins-semibold-600_184617d2e4fbb0171f1f55909b27da93"
+    },
+    "poppins bold": {
+        "bold": "poppins-bold-bold_f4585a80474fe130b19b90b61d10c763"
+    },
+    "poppins extrabold": {
+        "800": "poppins-extrabold-800_545299f8b6787c504bb796323596dec2"
+    }
+}

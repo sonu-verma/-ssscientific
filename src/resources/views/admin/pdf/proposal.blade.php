@@ -21,160 +21,239 @@
                         <li>Furniture Rental</li>
                     </ul>
                 </div>
-
                 <div class="row margin-top-40" style="padding:0;width: 100%;background-color: #fff;border-bottom-right-radius: 150px;">
 
                     <p style="color: #3a5a66; font-size: 30px;margin-left: 50px;padding-right: 50px;padding-bottom: 50px; line-height: 25px">
                         You can only sell your home once, don't leave money on table!
                     </p>
                 </div>
-
-                <p style="position: absolute;bottom: -50px;margin-left: 50px;color: #fff;font-size: 20px;">www.chicagostaging.com</p>
+                <p style="position: absolute;bottom: -50px;margin-left: 50px;color: #fff;font-size: 20px;">www.ssscientific.com</p>
 
             </div>
         </div>
         <div class="pdf-content">
-
             <div class="add--margin">
                 <table class="row page_break" style="width: 100%">
                     <td width="60%">
-
-                        <p style="margin: 0;padding: 0">{{ $model?$model->user->full_name:'' }}</p>
-                        <p style="margin: 0;padding: 0">Homeowner</p>
-                        <div class="row ml-4" style="margin: 0;padding: 0">
-                            <ul class="list" style="list-style-type: none;padding: 0">
-                                <li>
-                                    {{ $model?$model->company_name:'' }}
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="margin-top-20 margin-bottom-0">
-                            Staging Relationship Opportunity:
-                        </p>
-                        <p class="w-100 margin-top-0 margin-bottom-0 semi-bold" style="margin: 0;padding: 0;line-height: 20px">{{ $model?$model->property_address:'' }}</p>
-                        <p class="margin-top-40">
-                                <?php
-                                $firstName = 'N/A';
-                                if($model && $model->user){
-                                    $firstName = $model->user->first_name;
-                                }
-                                ?>
-                            Dear {{ $firstName }},
+                        <p style="margin: 0;padding: 0">
+                            SS Scientific<br />
+                            Shop No. 11, Jamal Mansion,<br />
+                            Dr, Meisheri Road, Dongri,<br />
+                            Mumbai - 400 009.<br />
+                            Maharashtra, India<br />
+                            GST: 27AYQPS9651P1Z2
                         </p>
                     </td>
                     <td width="40%">
-                        <p class="text-center" style="font-size: 25px">
-                            <span style="border-bottom: 5px solid #ffc000">{{ $model? __date(strtotime($model->created_at),'F j, Y'):'' }}</span>
-                        </p>
                         <div style="text-align: right; position: relative">
                             <img src="{{ public_path('images/proposal-pdf/sofa.png')  }}" alt="Sofa" style="width: 350px;height: 250px;position: absolute;right: 0;" />
                         </div>
                     </td>
                 </table>
-                <p class="" style="padding: 0;page-break-inside: avoid">
-                    We thank you for the opportunity.
-
-                    Staging has a proven track record of helping homeowners sell their homes faster, and for
-                    more money. The National Association of Realtors conducted a study that found nine out
-                    of ten potential home buyers that visit a property cannot see the homes potential.
-                    We can help all whom visit your property visualize your homes potential, and see themselves
-                    living and enjoying life there.  The Real Estate Staging Association studied 97 homes that
-                    were previously on the market for an average of 181 days before the homeowner called a
-                    professional staging company.  After the homes were staged, they were sold, on average,
-                    in 60 days.  This is 67% less time on market! <br/><br/>
-
-                    Phoenix Rising’s Amazing Results: In {{ date("Y",strtotime("-1 year")) }} PRHS assisted our clients in selling their
-                    homes for $1,800,000 over list price! <br/><br/>
-
-                    Please know our objective is simple:  Maximize the value of your property, stage a home
-                    so that it leaves a lasting, positive impression on the potential buyer, resulting in
-                    you selling your home for more money in less time.  We take an all-encompassing approach
-                    to staging your home.  We would like an opportunity to earn your trust, confidence and to
-                    become your “go to” Staging and Design Company.  With that in mind, I propose the following:
-                </p>
-                {{--                <h5 class="margin-top-20">About the Home</h5>--}}
-
-
-            </div>
-
-            <div class="" style="margin-top: 0">
-                <p class="margin-top-30 page--title semi-bold" style="margin: 0"><span class="bg--area">AREAS TO BE STAGED</span></p>
-
-            </div>
-
-            @if($model->notes)
-                <div class="">
-                    <ul class="margin-top-20" style="list-style-type: none;">
-                        <li>
-                            <b>Note:</b>
-                            {!! $model->notes !!}
-                        </li>
-                    </ul>
-                </div>
-            @endif
-
-
-            <div class="">
-                <p class="margin-top-20 page--title semi-bold" style="margin-bottom:0"><span class="bg--area">PROPOSAL INCLUDES</span></p>
-                <div class="add--margin">
-                    <table width="100%">
-                        <tr>
-                            <td width="60%">
-                                <ul class="dotted-list padding-0 proposal_included_li" style="margin-left: -14px;">
-                                    <li style="list-style: none">Design consultation, plan and execution.</li>
-                                    <li style="list-style: none">Installation of furniture, accessories and art that will enhance look and feel of the home.</li>
-                                    <li style="list-style: none">Removal of Phoenix Rising furniture and accessories.</li>
-                                </ul>
-                            </td>
-                            <td width="40%">
-                                <div style="text-align: right; position: relative">
-                                    <img src="{{ public_path('images/proposal-pdf/tables.png')  }}" alt="Tables" style="width: 250px;height: 350px;position: absolute;right: 0;top: -250px" />
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="add--margin">
-                <p class="margin-top-20" style="page-break-inside: avoid">
-                    We would be honored to assist you in preparing your listing for sale.  You can contact
-                    me at 312-450-8365 with any questions.  Please know we never take business for granted
-                    and will work hard every day to earn your continued trust and confidence.
-                </p>
-                <p class="margin-top-20">Sincerely,<br/>
-                    <span class="semi-bold">Your Staging Team</span>
-                </p>
-            </div>
-
-
-            <!-- Fixed Footer -->
-            <div id="footer" class="add--margin margin-top-40">
-                <p class="semi-bold border-bottom disclaimer">
-                    <i>
-                        Please note this proposal may have been written without viewing the home and we plan
-                        to deliver a Stunning Staging Design. If there are specific requests when
-                        designer visits the home, contract price may need to be adjusted.
-                    </i>
-                </p>
-
-                <table width="100%" class="reach--links">
-                    <tr>
-                        <td class="">
-                            <i><img src="{{ public_path('images/proposal-pdf/web.png')  }}" class="logo web"></i>
-                            <a href="https://www.chicagostaging.com" style="text-decoration: none">www.chicagostaging.com</a></td>
-                        <td class="">
-                            <i><img src="{{ public_path('images/proposal-pdf/tel.png')  }}" class="logo tel"></i>
-                            <a href="#">312-450-8365</a>
+                <table class="row quoteTable margin-top-20" style="width: 100%;border: 1px solid #000000"  cellpadding="0" cellspacing="0">
+                    <tr class="heading" style="border: 1px solid #000000">
+                        <td style="width:25%;border: 1px solid #000000;padding: 10px;">
+                            To
+                        </td>
+                        <td style="width:25%;border: 1px solid #000000;padding: 10px;"></td>
+                    </tr>
+                    <tr class="heading" style="border: 1px solid #000000">
+                        <td style="border: 1px solid #000000;padding: 10px;">
+                            <span class="">
+                                <?php
+                                    $firstName = 'N/A';
+                                    if($model && $model->user){
+                                        $firstName = $model->user->first_name;
+                                    }
+                                ?>
+                                Dear {{ $firstName }},
+                            </span>
+                            <span>
+                                {{ $model?$model->property_address:'' }}
+                            </span>
+                        </td>
+                        <td style="border: 1px solid #000000;padding: 10px;">
+                            QTN.No.: {{ $model?$model->quote_no:'NA' }} <br /> <br />
+                            Date: {{ date("d-m-Y", strtotime($model->created_at)) }}
+                        </td>
+                    </tr>
+                </table>
+                <table class="row quoteTable" style="width: 100%;margin-top: 13px !important;margin-left: -13px;" >
+                    <tr class="heading" style="">
+                        <td colspan="2" style="width:25%;padding: 10px;">
+                            CONTACT PERSON: {{ $model->user->full_name }}
                         </td>
                     </tr>
                     <tr>
-                        <td class="">
-                            <i><img src="{{ public_path('images/proposal-pdf/loc.png')  }}" class="logo loc"></i>
-                            <a href="#">105 E Oakton St, Des Plaines, IL 60018</a>
+                        <td style="width:50%;padding: 10px;">
+                            MOBILE: {{ $model->phone_number }}
                         </td>
-                        <td class="">
-                            <i><img src="{{ public_path('images/proposal-pdf/email.png')  }}" class="logo email"></i>
-                            <a href="mailto: staging@chicagostaging.com" style="text-decoration: none">ssscientif.net</a></td>
+                        <td style="padding: 10px;">
+                            Email: {{ $model->email }}
+                        </td>
+                    </tr>
+                </table>
+                <table class="row quoteTable" style="width: 100%;border: 1px solid #000000;margin-top: 13px !important;"  cellpadding="0" cellspacing="0">
+                    <tr class="heading" style="border: 1px solid #000000">
+                        <td width="10%" style="border: 1px solid #000000;padding: 10px;"> S/N  </td>
+                        <td width="10%" style="border: 1px solid #000000;padding: 10px;"> P/N  </td>
+                        <td width="10%" style="border: 1px solid #000000;padding: 10px;"> HSN Code  </td>
+                        <td width="40%" style="border: 1px solid #000000;padding: 10px;"> Description of goods </td>
+                        <td width="10%" style="border: 1px solid #000000;padding: 10px;"> Qty </td>
+                        <td width="10%" style="border: 1px solid #000000;padding: 10px;"> Unit {{ $model->currency_type }} </td>
+                        <td width="10%" style="border: 1px solid #000000;padding: 10px;"> Amount {{ $model->currency_type }} </td>
+                    </tr>
+                    @if($model && $model->items)
+                        @foreach($model->items as $item)
+                            <tr class="heading" style="border: 1px solid #000000">
+                                <td style="border: 1px solid #000000;padding: 10px;">
+                                    Quotation Info
+                                </td>
+                                <td style="border: 1px solid #000000;padding: 10px;">
+                                    Quotation Info
+                                </td>
+                                <td style="border: 1px solid #000000;padding: 10px;">
+                                    Quotation Info
+                                </td>
+                                <td style="border: 1px solid #000000;padding: 10px;">
+                                    {{ $item->product->name }}
+                                </td>
+                                <td style="border: 1px solid #000000;padding: 10px;">
+                                    {{ $item->quantity }}
+                                </td>
+                                <td style="border: 1px solid #000000;padding: 10px;">
+                                    {{ $item->asset_value }}
+                                </td>
+                                <td style="border: 1px solid #000000;padding: 10px;">
+                                    {{ $item->asset_value }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </table>
+                <table class="row page_break" style="width: 100%;border: 1px solid #000000"  cellpadding="0" cellspacing="0">
+                    <tr class="heading" style="border: 1px solid #000000">
+                        <td style="border: 1px solid #000000;padding: 10px;">
+                            <p class="">
+                                Bank Account Details:<br/>
+                                UNION BANK OF INDIA<br/>
+                                WADALA (EAST) BRANCH<br/>
+                                JUPITER BLDG., WADALA (EAST)<br/>
+                                SHANKARMISTRY ROAD,<br/>
+                                MUMBAI - 400037<br/>
+                                A/C No.: 583505080000001<br/>
+                                IFSC: UBIN0558354
+                            </p>
+                        </td>
+                        <td style="border: 1px solid #000000;padding: 10px;">
+                            Place the Order to:<br/>
+                            S. S Scientific<br/>
+                            Shop No. 11, Jamal Mansion,<br/>
+                            Navroji Hill Road No. 1, Dongri,<br/>
+                            Mumbai - 400 009<br/>
+                            Contact No.: Suresh Samala<br/>
+                            Email: ssuresh@ssscientific.net<br/>
+                            Mobile No.: +91 9833241875
+                        </td>
+                    </tr>
+                </table>
+                <table class="row quoteTable" style="width: 100%;" cellpadding="0" cellspacing="0">
+                    <tr class="heading">
+                        <td style="">
+                            Payment Terms:
+                        </td>
+                        <td style="text-align: right">
+                            <table class="row quoteInnerTable"  cellpadding="0" cellspacing="0">
+                                <tr class="heading">
+                                    <td style="text-align: right;">
+                                        Ex-Warehouse
+                                    </td>
+                                    <td style="border: 1px solid;padding: 5px;width: 85px;">
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td style="">
+                            Delivery Period:
+                        </td>
+                        <td style="text-align: right">
+                            <table class="row quoteInnerTable"  cellpadding="0" cellspacing="0">
+                                <tr class="heading">
+                                    <td style="text-align: right;">
+                                        IGST 18%
+                                    </td>
+                                    <td style="border: 1px solid;padding: 5px;width: 85px;">
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td style="">
+                            Installation:
+                        </td>
+                        <td style="text-align: right">
+                            <table class="row quoteInnerTable"  cellpadding="0" cellspacing="0">
+                                <tr class="heading">
+                                    <td style="text-align: right;">
+                                        CGST
+                                    </td>
+                                    <td style="border: 1px solid;padding: 5px;width: 85px;">
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td style="">
+                            Freight:
+                        </td>
+                        <td style="text-align: right">
+                            <table class="row quoteInnerTable"  cellpadding="0" cellspacing="0">
+                                <tr class="heading">
+                                    <td style="text-align: right;">
+                                        SGST
+                                    </td>
+                                    <td style="border: 1px solid;padding: 5px;width: 85px;">
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td style="">
+                            Validity - 90 Days
+                        </td>
+                        <td style="text-align: right">
+                            <table class="row quoteInnerTable"  cellpadding="0" cellspacing="0">
+                                <tr class="heading">
+                                    <td style="text-align: right;">
+                                        TOTAL FOR, DESTINATION
+                                    </td>
+                                    <td style="border: 1px solid;padding: 5px;width: 85px;">
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table class="row quoteTable" style="width: 100%;margin-top: 13px !important;margin-left: -13px;" >
+                    <tr class="heading" style="">
+                        <td style="width:25%;padding: 10px;">
+                            For, S. S SCIENTIFIC
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:50%;padding: 10px;">
+                            <img src="{{ public_path('images/proposal-pdf/stamp.png')  }}" style="width: 100px; height: 100px" class="stamp">
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -238,12 +317,12 @@
         }
 
         body {
-            font-size: 15px;
+            font-size: 10px;
             background-image: url({{ public_path('images/proposal-pdf/deck.jpg') }});
             height: 100%;
             width: 100%;
             background-size: cover;
-            padding: 80px 0;
+            padding: 70px 0;
             z-index: 11;
         }
 
@@ -476,85 +555,14 @@
         .margin-bottom-0 {
             margin-bottom: 0 !important;
         }
-
-        .margin-bottom-30 {
-            margin-bottom: 30px !important;
+        .margin-bottom-20 {
+            margin-bottom: 20px !important;
         }
 
-        .padding-0 {
-            padding: 0;
+        .quoteInnerTable{
+            width: 100%;
+            /*display: inline-block;*/
         }
 
-        #footer {
-            /*position: absolute;*/
-            /*left: 0px;*/
-            /*bottom: -70px;*/
-            /*right: 0px;*/
-            font-family: 'Poppins Medium';
-            font-weight: 500;
-        }
-
-        #footer .disclaimer {
-            font-size: 16px;
-            font-weight: 500;
-            padding-bottom: 15px;
-            padding-right: 70px;
-        }
-
-        #footer .reach--links td, #footer .reach--links td a {
-            font-size: 14px;
-            color: #000000;
-            margin-bottom: 0;
-        }
-
-        #footer .reach--links td.web--block a {
-            vertical-align: top;
-            cursor: pointer;
-        }
-
-        #footer .reach--links td a {
-            vertical-align: top;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        #footer .reach--links td i img {
-            height: 40px;
-        }
-        #footer .reach--links td i img.web {
-            height: 40px;
-            width: 60px;
-        }
-        #footer .reach--links td i img.tel {
-            width: 50px;
-        }
-        #footer .reach--links td i img.loc {
-            width: 65px;
-        }
-        #footer .reach--links td i img.email {
-            width: 50px;
-        }
-        .proposal_included_li li:before
-        {
-            content: "•";
-            list-style: none;
-            vertical-align: middle;
-            margin-left: 10px;
-            /*padding-right: 20px;*/
-            padding: 10px;
-            box-sizing: border-box;
-            font-size: 20px;
-        }
-        .other_info_included_li li:before
-        {
-            content: "•";
-            list-style: none;
-            vertical-align: middle;
-            margin-left: -10px;
-            /*padding-right: 20px;*/
-            padding: 5px !important;
-            box-sizing: border-box;
-            font-size: 20px;
-        }
     </style>
 @endsection

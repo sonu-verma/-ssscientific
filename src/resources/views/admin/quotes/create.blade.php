@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">DataTables</li>
+                        <li class="breadcrumb-item active">Quote</li>
                     </ol>
                 </div>
             </div>
@@ -41,13 +41,25 @@
 {{--                                                <option value="">Select customer</option>--}}
 {{--                                                <option value="1">Sonu Verma</option>--}}
 {{--                                            </select>--}}
-                                            <select class="form-control select2bs4"  data-resource="user" style="width: 100%;" name="id_user" id="ddlUser" data-parent="#addQuote" style="width: 100%;">
-                                                <option value="1">Alaska</option>
-                                                <option value="1">California</option>
-                                                <option value="1">Delaware</option>
-                                                <option value="1">Tennessee</option>
-                                                <option value="1">Texas</option>
-                                                <option value="1">Washington</option>
+                                            <select data-resource="user"
+                                                    class="form-control"
+                                                    style="width: 100%;"
+                                                    name="id_user"
+                                                    id="quoteCustomer"
+                                                    data-parent="#quoteForm"
+                                                    onchange="return getUserDetails(this.value,1)"
+                                                    required>
+                                                <option value="">Select customer</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="text-align: left;margin-top: 9px;">
+                                            <label class="">Currency Type<span class="validateClass">*</span></label>
+                                            <select class="form-control" style="width: 100%;" name="currency_type" id="currency_type"
+                                                    required>
+                                                <option value="">Select Currency</option>
+                                                <option value="INR">INR</option>
+                                                <option value="USD">USD</option>
                                             </select>
                                         </div>
                                     </div>
