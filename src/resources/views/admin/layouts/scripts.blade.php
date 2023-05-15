@@ -36,14 +36,17 @@
 <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+<script src="{{ asset('dist/js/notify.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 {{--<script src="{{ asset('dist/js/demo.js') }}"></script>--}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{--<script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>--}}
 <script>
+    var adminUrl = '{{url('')}}';
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 </script>
+<script src="{{ asset('js/app.js') }}"></script>

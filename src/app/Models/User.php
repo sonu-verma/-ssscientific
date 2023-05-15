@@ -24,6 +24,8 @@ class User extends Authenticatable
         'email',
         'phone_number',
         'password',
+        'role_id',
+        'status',
     ];
 
     protected $appends = ['full_name'];

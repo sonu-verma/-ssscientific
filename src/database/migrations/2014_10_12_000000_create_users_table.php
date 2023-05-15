@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->unsignedBigInteger('role_id')->nullable();
 //            $table->foreign('role_id')->references('id')->on('roles');
-            $table->string('status');
-            $table->string('password');
+            $table->string('status')->nullable();
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

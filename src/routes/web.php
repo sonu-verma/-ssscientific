@@ -46,7 +46,11 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(CustomerController::class)->group(function () {
         Route::get('/customers','getCustomers')->name('customers');
+        Route::get('/add/customer','add')->name('create.customer');
+        Route::post('/store/customer','updateCustomerForm')->name('store.customer');
         Route::get('/ajax/customers','getCustomers')->name('ajax.customers');
+        Route::get('/edit/customer/{user}','edit')->name('edit.customer');
+        Route::get('/delete/customer/{user}','deleteCustomer')->name('delete.customer');
     });
     Route::controller(RolesController::class)->group(function () {
         Route::get('/roles','index')->name('roles');

@@ -25,7 +25,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="pull-right">
-                                <a href="" class="pull-right btn btn-primary" >Add</a>
+                                <a href="{{ route('create.customer') }}" class="pull-right btn btn-primary" >Add</a>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -51,7 +51,26 @@
                                             <td>{{ $customer->phone_number }}</td>
                                             <td>{{ $customer->status }}</td>
                                             <td>{{ $customer->created_at }}</td>
-                                            <td>Action</td>
+                                            <td>
+                                                @php
+                                                    $buttons = [
+                                                        'trash' => [
+                                                            'label' => 'Delete',
+                                                            'attributes' => [
+                                        //                        'id' => $property->id.'_view',
+                                                                'href' => route('delete.customer', ['user' => $customer->id]),
+                                                            ]
+                                                        ],
+                                                        'edit' => [
+                                                            'label' => 'Edit',
+                                                            'attributes' => [
+                                                                'href' => route('edit.customer', ['user' => $customer->id]),
+                                                            ]
+                                                        ]
+                                                    ];
+                                                @endphp
+                                                {!! table_buttons($buttons, false) !!}
+                                            </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -69,8 +88,15 @@
     </section>
     <!-- /.content -->
 @endsection
+
 @section('pageScript')
 <script>
+
+    var isMessage = "{{ session('customerMsg') }}";
+    if(isMessage){
+        messages.saved("Customer", isMessage);
+    }
+
   $(function () {
     $("#customersTable").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,

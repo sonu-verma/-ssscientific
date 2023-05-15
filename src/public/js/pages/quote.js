@@ -153,28 +153,17 @@ $(document).on('click','#quoteFormBtn',function(e){
         dataType: 'json',
         data: $('#quoteForm').serialize()+"&formType=",
         success:function(response){
-            console.log("response =>", response);
-            return false;
             if(response.status){
                 messages.saved("Quote", response.message);
-                $('#addQuote').modal('hide');
                 $('#quoteForm')[0].reset();
-                if(type == 'saveNext'){
-                    console.log(adminUrl+'/prhsOrder/create?token='+response.token+'&quote_no='+response.quote_no);
-                    window.location.href=adminUrl+'/prhsOrder/create?token='+response.token+'&quote_no='+response.quote_no;
-
-                }else{
-                    window.location.href=adminUrl+'/order/edit/quote/'+response.quoteId;
-                }
+                window.location.href=adminUrl+'/quote/edit/'+response.quoteId;
                 // window.location.reload();
             }else{
                 $('.quoteFormBtn').prop('disabled', false);
                 if(response.statusCode == 400){
                     var str = '';
                     $.each(response.errors, function(key, value) {
-                        console.log('key,'+key);
                         if(key == 'id_second_user'){
-                            console.log('isClass,'+$('#quoteFormBtn').hasClass('quoteNewForm'));
                             if($('#quoteFormBtn').hasClass('quoteNewForm')){
                                 $('#'+key).after('<div class="quote-error" style="display: block;position: absolute;margin-top: 33px;line-height: 16px;">'+value[0]+'</div>');
                             }else{
@@ -190,8 +179,6 @@ $(document).on('click','#quoteFormBtn',function(e){
                 }else{
                     messages.error('Error', response.message);
                 }
-                $('.nextQuoteBtn').attr('disabled', true);
-                $('.nextQuoteBtn').addClass('fixedOption');
             }
         }
     });

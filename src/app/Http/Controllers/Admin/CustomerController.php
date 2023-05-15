@@ -14,4 +14,38 @@ class CustomerController extends Controller
             'customers' => $customers
         ]);
     }
+
+    public function deleteCustomer(User $user){
+        if($user){
+            $user->delete();
+            return redirect()->back()->with('customerMsg','Customer deleted successfully.');
+        }
+    }
+
+    public function add(){
+        return view('admin.customers.create');
+    }
+
+    public function updateCustomerForm(Request $request){
+
+        $customer = User::updateOrCreate(
+            ['id' => $request->get('id')],
+            [
+                'first_name' => $request->get('first_name'),
+                'last_name' => $request->get('last_name'),
+                'phone_number' => $request->get('phone_number'),
+                'email' => $request->get('email'),
+                'role_id' => $request->get('role'),
+                'status' => $request->get('status'),
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+            ],
+        );
+
+        return redirect(route('customers'))->with('customerMsg',"Details added successfully");
+
+    }
+
+    public function edit(User $user){
+        return view('admin.customers.edit',['model' => $user]);
+    }
 }

@@ -176,6 +176,12 @@ class QuoteController extends Controller
         $quote->notes = $request->input('notes');
         $quote->created_by = Auth::user()->id;
         $quote->save();
+
+        return response()->json([
+            "status" => 200,
+            "quoteId" => $quote->id,
+            "message" => "Proposal updated successfully"
+        ]);
     }
 
     /**
