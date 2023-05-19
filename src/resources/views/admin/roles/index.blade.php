@@ -45,9 +45,28 @@
                                     <tr>
                                         <td class="subj_name">{{ $role->id }}</td>
                                         <td>{{ $role->role_name }}</td>
-                                        <td>{{ $role->status }}</td>
+                                        <td>{{ \App\Models\Admin\Role::roleStatus[$role->status] }}</td>
                                         <td>{{ $role->created_at }}</td>
-                                        <td>Action</td>
+                                        <td>
+                                            @php
+                                                $buttons = [
+                                                    'trash' => [
+                                                        'label' => 'Delete',
+                                                        'attributes' => [
+                                    //                        'id' => $property->id.'_view',
+                                                            'href' => route('delete.role', ['role' => $role->id]),
+                                                        ]
+                                                    ],
+                                                    'edit' => [
+                                                        'label' => 'Edit',
+                                                        'attributes' => [
+                                                            'href' => route('edit.role', ['role' => $role->id]),
+                                                        ]
+                                                    ]
+                                                ];
+                                            @endphp
+                                            {!! table_buttons($buttons, false) !!}
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -67,7 +86,17 @@
 @endsection
 @section('pageScript')
 <script>
-  $(function () {
+    var roleSuccessMsg = "{{ session('roleSuccessMsg') }}";
+    var roleErrorMsg = "{{ session('roleErrorMsg') }}";
+    if(roleSuccessMsg){
+        messages.saved("Role", roleSuccessMsg);
+    }
+
+    if(roleErrorMsg){
+        messages.error("Role", roleErrorMsg);
+    }
+
+    $(function () {
     $("#rolesTable").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
     //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

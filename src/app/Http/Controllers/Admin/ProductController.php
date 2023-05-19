@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Category;
 use App\Models\Admin\Product;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
@@ -58,5 +59,30 @@ class ProductController extends Controller
 
     public function addCartItem(Request $request){
         dd($request->all());
+    }
+
+
+    public function deleteProduct(Product $product){
+        if($product){
+            $product->delete();
+            return redirect()->back()->with('productSuccessMsg',"Product deleted successfully.");
+        }else{
+            return redirect()->back()->with('productErrorMsg',"Product not found.");
+        }
+    }
+
+    public function create(Request $request){
+        $categories =  Category::where('status', 1)->get()->all();
+        return view('admin.products.create',[
+            'categories' => $categories
+        ]);
+    }
+
+    public function store(Request $request){
+        dd($request->all());
+    }
+
+    public function editProduct(Request $request){
+
     }
 }

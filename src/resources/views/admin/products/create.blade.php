@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Customer</li>
+                        <li class="breadcrumb-item active">Product</li>
                     </ol>
                 </div>
             </div>
@@ -24,41 +24,70 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Add User</h5>
+                            <h5>Proposal Form</h5>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form name="customerForm" id="customerForm" action="{{ route('store.customer') }}" method="POST" autocomplete="off">
+                            <form name="productForm" id="productForm" action="{{ route('store.product') }}" method="POST" autocomplete="off">
                                 {{ csrf_field() }}
-                                <h6 class="title_in_caps" style="margin-bottom: 9px !important;">Customer Information:</h6>
+                                <h6 class="title_in_caps" style="margin-bottom: 9px !important;">Product Information:</h6>
                                 <div class="proposal-boxx--View">
-                                    <div class="row margin-bottom-20">
+                                    <div class="row">
                                         <div class="col-md-4">
-                                            <label for="first_name">First Name:</label>
-                                            <input type="text" name="first_name" id="first_name" class="form-control fixedOption" required>
+                                            <label for="name">Name:</label>
+                                            <input type="text" name="name" id="productName" class="form-control fixedOption" required>
                                         </div>
                                         <div class="col-md-4">
-                                            <label for="last_name">Last Name:</label>
-                                            <input type="text" name="last_name" id="last_name" class="form-control fixedOption" required>
+                                            <label for="product_id">Product ID</label>
+                                            <input type="text" name="product_id" id="product_id" class="form-control fixedOption" required>
                                         </div>
                                         <div class="col-md-4">
-                                            <label for="phone_number">Phone Number:</label>
-                                            <input type="number" name="phone_number" id="phone_number" class="form-control fixedOption" required>
-                                        </div>
-                                    </div>
-                                    <div class="row margin-bottom-20">
-                                        <div class="col-md-4" style="margin-top: 2px;">
-                                            <label for="email">E-Mail Address:<span class="validateClass">*</span></label>
-                                            <input type="email" name="email" id="email" class="form-control fixedOption">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="relation">Role:<span class="validateClass">*</span></label>
-                                            <select name="role" id="role" class="form-control" required>
+                                            <label for="relation">Category:<span class="validateClass">*</span></label>
+                                            <select name="category" id="category" class="form-control" required>
                                                 <option value="">Select Option</option>
-                                                <option value="1">Admin</option>
-                                                <option value="2">Executive</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 20px">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="slug" class="form-control-label">Product URL
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text input-group-addon" id="alighaddon1">www.ssscientif.com/</span>
+                                                    <?php
+                                                    $readOnly = (true) ? 'readonly' : '';
+                                                    ?>
+                                                    <input type="text" name="slug" class="form-control" id="txtSlug" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="slug" class="form-control-label">Short Description
+                                                </label>
+                                                <div class="input-group">
+                                                    <textarea class="form-control" name="short_description" id="short_description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="slug" class="form-control-label"> Description</label>
+                                                <div class="input-group">
+                                                    <textarea class="form-control" name="description" id="description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-4">
                                             <label for="relation">Status:<span class="validateClass">*</span></label>
                                             <select name="status" id="status" class="form-control" required>
@@ -68,8 +97,10 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="row" style="margin-top: 21px;margin-left: 2px;">
+                                        <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
                             </form>
                         </div>
                         <!-- /.card-body -->
@@ -86,11 +117,10 @@
 @endsection
 
 @section('pageScript')
-    <script src="{{ asset('/js/pages/customer.js') }}"></script>
+    <script src="{{ asset('/js/pages/product.js') }}"></script>
     <script>
         $('.select2bs4').select2({
             theme: 'bootstrap4'
         })
     </script>
 @endsection
-l

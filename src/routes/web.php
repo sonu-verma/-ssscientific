@@ -43,6 +43,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/products','index')->name('products');
         Route::get('/ajax/product','getProduct')->name('ajax.product');
         Route::get('/ajax/products','getProducts')->name('ajax.products');
+        Route::get('/delete/product/{product}','deleteProduct')->name('delete.product');
+        Route::get('/product/create','create')->name('create.product');
+        Route::get('/product/store','store')->name('store.product');
+        Route::get('/edit/product/{product}','editProduct')->name('edit.product');
     });
     Route::controller(CustomerController::class)->group(function () {
         Route::get('/customers','getCustomers')->name('customers');
@@ -54,6 +58,8 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(RolesController::class)->group(function () {
         Route::get('/roles','index')->name('roles');
+        Route::get('/delete/role/{role}','deleteRole')->name('delete.role');
+        Route::get('/edit/role/{role}','edit')->name('edit.role');
     });
     Route::controller(RolesController::class)->group(function () {
         Route::get('/categories','index')->name('categories');

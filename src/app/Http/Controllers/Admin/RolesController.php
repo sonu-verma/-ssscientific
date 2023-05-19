@@ -14,4 +14,19 @@ class RolesController extends Controller
             'roles' => $roles
         ]);
     }
+
+    public function deleteRole(Role $role){
+        try{
+            if($role){
+                $role->delete();
+                return redirect()->back()->with('roleSuccessMsg',"Role deleted successfully.");
+            }
+        }catch(\Exception $e){
+            return redirect()->back()->with('roleErrorMsg',"Role not found.");
+        }
+    }
+
+    public function edit(Request $request){
+
+    }
 }
