@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Product</li>
+                        <li class="breadcrumb-item active">Add > Product</li>
                     </ol>
                 </div>
             </div>
@@ -88,6 +88,10 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="relation">Sale Price:<span class="validateClass">*</span></label>
+                                            <input type="text" name="sale_price" class="form-control" id="salePrice" >
+                                        </div>
                                         <div class="col-md-4">
                                             <label for="relation">Status:<span class="validateClass">*</span></label>
                                             <select name="status" id="status" class="form-control" required>

@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('short_description');
             $table->text('description');
-            $table->text('features');
+            $table->text('features')->nullable();
             $table->integer('status');
-            $table->integer('sale_price');
-            $table->boolean('is_featured')->default(false);
-            $table->boolean('is_reusable')->default(false);
+            $table->integer('sale_price')->nullable();
+            $table->boolean('is_featured')->default(false)->nullable();
+            $table->boolean('is_reusable')->default(false)->nullable();
 //            $table->foreign('id_category')->references('id')->on('categories');
 //            $table->foreign('id_vendor')->references('id')->on('vendors');
             $table->timestamps();

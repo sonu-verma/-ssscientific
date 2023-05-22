@@ -20,8 +20,13 @@ class ProductController extends Controller
     public function getProduct(Request $request){
         $productId = $request->get('id');
         $product = Product::where('id',$productId)->get()->first();
-        return view('admin.products.product',[
+        $html =  view('admin.products.product',[
             'product' => $product
+        ])->render();
+
+        return response()->json([
+            'htmlView' => $html,
+            'statusCode' => 200
         ]);
     }
 
@@ -79,10 +84,57 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-        dd($request->all());
+
+        $product  = new Product();
+        $product->name = $request->get('name');
+        $product->sku = $request->get('product_id');
+        $product->id_category = $request->get('category');
+        $product->slug = $request->get('slug');
+        $product->sale_price = $request->get('sale_price');
+        $product->short_description = $request->get('short_description');
+        $product->description = $request->get('description');
+        $product->status = $request->get('status');
+        $product->features = 1;
+        $product->is_featured = 1;
+        $product->is_reusable = 0;
+        $product->save();
+        if($product->id > 0){
+            return redirect()->route('products')->with('productSuccessMsg',"Product created successfully.");
+        }else{
+            return redirect()->route('products')->with('productErrorMsg',"something went wrong.");
+        }
     }
 
-    public function editProduct(Request $request){
+    public function edit(Product $product,Request $request){
+        $categories =  Category::where('status', 1)->get()->all();
+        return view('admin.products.edit',[
+            'product' => $product,
+            'categories' => $categories
+        ]);
+    }
 
+    public function update(Request $request){
+
+       $productId = $request->get('id_product');
+
+       $product = Product::where('id',$productId)->get()->first();
+       if($product){
+            $product->name = $request->get("name");
+            $product->sku = $request->get("product_id");
+            $product->id_category = $request->get("category");
+            $product->slug = $request->get("slug");
+            $product->short_description = $request->get("short_description");
+            $product->description = $request->get("description");
+            $product->sale_price = $request->get("sale_price");
+            $product->status = $request->get("status");
+            $product->features = 1;
+            $product->is_reusable = 0;
+            $product->save();
+           if($product->id > 0){
+               return redirect()->back()->with('productSuccessMsg',"Product updated successfully.");
+           }else{
+               return redirect()->back()->with('productErrorMsg',"something went wrong.");
+           }
+       }
     }
 }

@@ -31,7 +31,7 @@ class ProductCartItemsController extends Controller
         }
 
         return response()->json([
-            'message' => 'product adde successfully.',
+            'message' => 'product added successfully.',
             'status' => true
         ]);
     }

@@ -113,10 +113,12 @@ var itemlist = {
             assetValue:assetValue,
             originalAssetValue:originalAssetValue
         }, function(data){
-            console.log('data ',data);
-            return false;
-            messages.saved('','Item added successfully');
-            itemlist.refreshView();
+            if(data.status){
+                messages.saved('','Item added successfully');
+                itemlist.refreshView();
+            }else{
+                messages.error('Product','data already added in cart');
+            }
         });
 
     },
@@ -364,7 +366,7 @@ function searchProduct(val,type, isUpdate = false){
         data: {id:val},
         success: function (data) {
             console.log('data',data)
-            $('.productResultContainer').html(data);
+            $('.productResultContainer').html(data.htmlView);
         }
     });
 }

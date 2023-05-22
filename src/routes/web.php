@@ -27,6 +27,34 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::controller(ProductController::class)->group(function () {
+            Route::get('/products','index')->name('products');
+            Route::get('/ajax/product','getProduct')->name('ajax.product');
+            Route::get('/ajax/products','getProducts')->name('ajax.products');
+            Route::get('/delete/product/{product}','deleteProduct')->name('delete.product');
+            Route::get('/product/create','create')->name('create.product');
+            Route::post('/product/store','store')->name('store.product');
+            Route::get('/edit/product/{product}','edit')->name('edit.product');
+            Route::post('/product/update','update')->name('update.product');
+        });
+        Route::controller(CustomerController::class)->group(function () {
+            Route::get('/customers','getCustomers')->name('customers');
+            Route::get('/add/customer','add')->name('create.customer');
+            Route::post('/store/customer','updateCustomerForm')->name('store.customer');
+            Route::get('/ajax/customers','getCustomers')->name('ajax.customers');
+            Route::get('/edit/customer/{user}','edit')->name('edit.customer');
+            Route::get('/delete/customer/{user}','deleteCustomer')->name('delete.customer');
+        });
+        Route::controller(RolesController::class)->group(function () {
+            Route::get('/roles','index')->name('roles');
+            Route::get('/delete/role/{role}','deleteRole')->name('delete.role');
+            Route::get('/edit/role/{role}','edit')->name('edit.role');
+        });
+        Route::controller(RolesController::class)->group(function () {
+            Route::get('/categories','index')->name('categories');
+        });
+    });
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
     });
@@ -39,32 +67,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/quote/edit/{id}', 'edit')->name('quote.edit');
         Route::get('/quote/downloadQuote/{quote_id}', 'downloadQuote')->name('quote.download');
     });
-    Route::controller(ProductController::class)->group(function () {
-        Route::get('/products','index')->name('products');
-        Route::get('/ajax/product','getProduct')->name('ajax.product');
-        Route::get('/ajax/products','getProducts')->name('ajax.products');
-        Route::get('/delete/product/{product}','deleteProduct')->name('delete.product');
-        Route::get('/product/create','create')->name('create.product');
-        Route::get('/product/store','store')->name('store.product');
-        Route::get('/edit/product/{product}','editProduct')->name('edit.product');
-    });
-    Route::controller(CustomerController::class)->group(function () {
-        Route::get('/customers','getCustomers')->name('customers');
-        Route::get('/add/customer','add')->name('create.customer');
-        Route::post('/store/customer','updateCustomerForm')->name('store.customer');
-        Route::get('/ajax/customers','getCustomers')->name('ajax.customers');
-        Route::get('/edit/customer/{user}','edit')->name('edit.customer');
-        Route::get('/delete/customer/{user}','deleteCustomer')->name('delete.customer');
-    });
-    Route::controller(RolesController::class)->group(function () {
-        Route::get('/roles','index')->name('roles');
-        Route::get('/delete/role/{role}','deleteRole')->name('delete.role');
-        Route::get('/edit/role/{role}','edit')->name('edit.role');
-    });
-    Route::controller(RolesController::class)->group(function () {
-        Route::get('/categories','index')->name('categories');
-    });
-
     Route::controller(ProductCartItemsController::class)->group(function(){
         Route::post('/product/additem','addCartItem')->name('product.additem');
         Route::get('/quote/items/{id}','getItems')->name('getItems');

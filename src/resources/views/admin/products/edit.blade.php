@@ -1,0 +1,141 @@
+@extends('admin.layouts.master')
+@section('content')
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Edit > Product</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Proposal Form</h5>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form name="productForm" id="productForm" action="{{ route('update.product') }}" method="POST" autocomplete="off">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="id_product" value="{{ $product->id }}">
+                                <h6 class="title_in_caps" style="margin-bottom: 9px !important;">Product Information:</h6>
+                                <div class="proposal-boxx--View">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="name">Name:</label>
+                                            <input type="text" name="name" id="productName" value="{{ $product->name }}" class="form-control fixedOption" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="product_id">Product ID</label>
+                                            <input type="text" name="product_id" id="product_id" value="{{ $product->sku }}"  class="form-control fixedOption" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="relation">Category:<span class="validateClass">*</span></label>
+                                            <select name="category" id="category" class="form-control" required>
+                                                <option value="">Select Option</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}" {{ $category->id == $product->id_category?'selected':'' }}>{{ $category->category_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 20px">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="slug" class="form-control-label">Product URL
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text input-group-addon" id="alighaddon1">www.ssscientif.com/</span>
+                                                    <?php
+                                                    $readOnly = (true) ? 'readonly' : '';
+                                                    ?>
+                                                    <input type="text" name="slug" class="form-control" id="txtSlug" value="{{ $product->slug }}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="slug" class="form-control-label">Short Description
+                                                </label>
+                                                <div class="input-group">
+                                                    <textarea class="form-control" name="short_description" id="short_description">{{ $product->short_description }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="slug" class="form-control-label"> Description</label>
+                                                <div class="input-group">
+                                                    <textarea class="form-control" name="description" id="description">{{ $product->description }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="relation">Sale Price:<span class="validateClass">*</span></label>
+                                            <input type="text" name="sale_price" class="form-control" id="salePrice" value="{{ $product->sale_price }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="relation">Status:<span class="validateClass">*</span></label>
+                                            <select name="status" id="status" class="form-control" required>
+                                                <option value="">Select Option</option>
+                                                <option value="1" {{ $product->status == 1?'selected':'' }}>Active</option>
+                                                <option value="2" {{ $product->status == 2?'selected':'' }}>Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 21px;margin-left: 2px;">
+                                        <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+@endsection
+
+@section('pageScript')
+    <script src="{{ asset('/js/pages/product.js') }}"></script>
+    <script>
+        var productSuccessMsg = "{{ session('productSuccessMsg') }}";
+        var productErrorMsg = "{{ session('productErrorMsg') }}";
+
+        if(productSuccessMsg){
+            messages.saved("Product", productSuccessMsg);
+        }
+        if(productErrorMsg){
+            messages.error("Product", productErrorMsg);
+        }
+
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    </script>
+@endsection

@@ -17,3 +17,13 @@ $('#productName').keyup(function () {
     $('#txtSlug').val(slug);
     // }
 });
+
+$(function (){
+    if(productSuccessMsg){
+        alert('sadf');
+        messages.saved("Product", productSuccessMsg);
+    }
+    if(productErrorMsg){
+        messages.error("Product", productErrorMsg);
+    }
+});

@@ -3,38 +3,38 @@
     @if(!$model)
         <div><h1>Proposal Not generated,Please generate proposal first</h1></div>
     @else
-        <div id="firstPage" class="commonPageCss">
-            <div class="container">
-                <div class="row margin-top-40">
-                    <img src="{{ public_path('images/proposal-pdf/pdf-logo.png')  }}" style="width: 600px; height: auto" class="logo">
-                </div>
-                <div class="row" style="margin-top: 40px;margin-left: 40px;margin-right: 0;margin-bottom: 0">
-                    <h2 class="extra-bold" style="font-size: 75px;color: #fff;">
-                        DESIGNS THAT INSPIRE
-                        <span style="font-size: 20px; vertical-align: top;padding-top: 20px">TM</span></h2>
+{{--        <div id="firstPage" class="commonPageCss">--}}
+{{--            <div class="container">--}}
+{{--                <div class="row margin-top-40">--}}
+{{--                    <img src="{{ public_path('images/proposal-pdf/pdf-logo.png')  }}" style="width: 600px; height: auto" class="logo">--}}
+{{--                </div>--}}
+{{--                <div class="row" style="margin-top: 40px;margin-left: 40px;margin-right: 0;margin-bottom: 0">--}}
+{{--                    <h2 class="extra-bold" style="font-size: 75px;color: #fff;">--}}
+{{--                        DESIGNS THAT INSPIRE--}}
+{{--                        <span style="font-size: 20px; vertical-align: top;padding-top: 20px">TM</span></h2>--}}
 
-                </div>
-                <div class="row" style="font-size: 25px;margin-left: 15px;">
-                    <ul class="main--list">
-                        <li>Home Staging</li>
-                        <li>Furniture Sales</li>
-                        <li>Furniture Rental</li>
-                    </ul>
-                </div>
-                <div class="row margin-top-40" style="padding:0;width: 100%;background-color: #fff;border-bottom-right-radius: 150px;">
+{{--                </div>--}}
+{{--                <div class="row" style="font-size: 25px;margin-left: 15px;">--}}
+{{--                    <ul class="main--list">--}}
+{{--                        <li>Home Staging</li>--}}
+{{--                        <li>Furniture Sales</li>--}}
+{{--                        <li>Furniture Rental</li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--                <div class="row margin-top-40" style="padding:0;width: 100%;background-color: #fff;border-bottom-right-radius: 150px;">--}}
 
-                    <p style="color: #3a5a66; font-size: 30px;margin-left: 50px;padding-right: 50px;padding-bottom: 50px; line-height: 25px">
-                        You can only sell your home once, don't leave money on table!
-                    </p>
-                </div>
-                <p style="position: absolute;bottom: -50px;margin-left: 50px;color: #fff;font-size: 20px;">www.ssscientific.com</p>
+{{--                    <p style="color: #3a5a66; font-size: 30px;margin-left: 50px;padding-right: 50px;padding-bottom: 50px; line-height: 25px">--}}
+{{--                        You can only sell your home once, don't leave money on table!--}}
+{{--                    </p>--}}
+{{--                </div>--}}
+{{--                <p style="position: absolute;bottom: -50px;margin-left: 50px;color: #fff;font-size: 20px;">www.ssscientific.com</p>--}}
 
-            </div>
-        </div>
+{{--            </div>--}}
+{{--        </div>--}}
         <div class="pdf-content">
             <div class="add--margin">
                 <table class="row page_break" style="width: 100%">
-                    <td width="60%">
+                    <td>
                         <p style="margin: 0;padding: 0">
                             SS Scientific<br />
                             Shop No. 11, Jamal Mansion,<br />
@@ -43,11 +43,6 @@
                             Maharashtra, India<br />
                             GST: 27AYQPS9651P1Z2
                         </p>
-                    </td>
-                    <td width="40%">
-                        <div style="text-align: right; position: relative">
-                            <img src="{{ public_path('images/proposal-pdf/sofa.png')  }}" alt="Sofa" style="width: 350px;height: 250px;position: absolute;right: 0;" />
-                        </div>
                     </td>
                 </table>
                 <table class="row quoteTable margin-top-20" style="width: 100%;border: 1px solid #000000"  cellpadding="0" cellspacing="0">
@@ -371,9 +366,9 @@
             line-height: 50px;
         }
 
-        .add--margin {
-            margin: 0 50px;
-        }
+        /*.add--margin {*/
+        /*    margin: 0 50px;*/
+        /*}*/
 
         .page--title {
             background-color: #FFC847;

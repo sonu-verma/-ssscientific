@@ -38,16 +38,16 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link active">
+                    <a href="{{ route('dashboard') }}" class="nav-link {{ ($prefix == '' && $controllerName == 'DashboardController')?'active':'' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard
+                            Dashboard</p>
                         </p>
                     </a>
                 </li>
                 <li class="nav-header"></li>
-                <li class="nav-item ">
-                    <a href="#" class="nav-link">
+                <li class="nav-item  {{ $prefix == 'admin'?'menu-open':'' }}">
+                    <a href="#" class="nav-link {{ $prefix == 'admin'?'active':'' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Master Info
@@ -56,33 +56,33 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('roles') }}" class="nav-link">
+                            <a href="{{ route('roles') }}" class="nav-link  {{ $controllerName == 'RolesController'?'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Roles</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('categories') }}" class="nav-link">
+                            <a href="{{ route('categories') }}" class="nav-link  {{ $controllerName == 'CategoryController'?'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Category</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('customers') }}" class="nav-link">
+                            <a href="{{ route('customers') }}" class="nav-link  {{ $controllerName == 'CustomerController'?'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Customers</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('products') }}" class="nav-link">
+                            <a href="{{ route('products') }}" class="nav-link {{ $controllerName == 'ProductController'?'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Products</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item ">
-                    <a href="#" class="nav-link">
+                <li class="nav-item  {{ ($prefix == '' && $controllerName == 'QuoteController')?'menu-open':'' }}">
+                    <a href="#" class="nav-link {{ ($prefix == '' && $controllerName == 'QuoteController')?'active':'' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Quote Info
@@ -91,7 +91,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('quotes') }}" class="nav-link">
+                            <a href="{{ route('quotes') }}" class="nav-link  {{ $controllerName == 'QuoteController'?'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Quotations</p>
                             </a>
