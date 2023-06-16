@@ -66,10 +66,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/quote/update/{quote}', 'update')->name('quote.update');
         Route::get('/quote/edit/{id}', 'edit')->name('quote.edit');
         Route::get('/quote/downloadQuote/{quote_id}', 'downloadQuote')->name('quote.download');
+        Route::get('/invoice/download/{quote_id}', 'downloadInvoice')->name('invoice.download');
+        Route::get('/quote/change-status/{quote_id}', 'changeStatus')->name('quote.changeStatus');
     });
     Route::controller(ProductCartItemsController::class)->group(function(){
         Route::post('/product/additem','addCartItem')->name('product.additem');
         Route::get('/quote/items/{id}','getItems')->name('getItems');
+        Route::post('/remove/item','addCartItem')->name('item.remove');
     });
 });
 

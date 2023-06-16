@@ -20,6 +20,12 @@ class Quote extends BaseModel
     const DOCUSIGN_SENT = 8;
     const AGREEMENT_SIGNED = 9;
 
+    const STATUS_ACTIVE = 1;
+
+    const ACTION_STATUS_APPROVED = 1;
+    const ACTION_STATUS_REJECTED = 2;
+    const ACTION_STATUS_HOLD = 3;
+
     const CURRENCY_TYPES = [
         "INR" => "INR",
         "USD" => "USD",

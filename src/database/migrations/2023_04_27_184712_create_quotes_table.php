@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('token', 50)->nullable();
             $table->string('reference', 50)->nullable();
             $table->integer('cust_id')->nullable();
+            $table->integer('order_type')->nullable();
             $table->string('phone_number', 50)->nullable()->unique();
             $table->string('email', 50)->nullable()->unique();
 //            $table->text('property_address')->nullable();
@@ -41,8 +42,10 @@ return new class extends Migration
             $table->string('currency_type', 50)->nullable();
             $table->text('notes')->nullable();
             $table->integer('status')->nullable();
-            $table->integer('approved_by')->nullable();
-            $table->integer('approved_at')->nullable();
+            $table->integer('action_type')->nullable();
+            $table->integer('action_by')->nullable();
+            $table->integer('action_at')->nullable();
+            $table->text('action_note');
             $table->integer('created_by')->nullable();
             $table->timestamps();
         });

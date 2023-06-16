@@ -1,3 +1,7 @@
+<?php
+    $subPrice = 0;
+    $totalPrice = 0;
+?>
 <table class="productSummaryTable table">
     <thead>
     <tr>
@@ -19,19 +23,35 @@
     </thead>
     <tbody>
     @foreach($items as $item)
+        @php
+            $subPrice += $item->asset_value * $item->quantity;
+            $totalPrice += $item->asset_value * $item->quantity;
+        @endphp
         <tr class="strong-line">
             <td>IMage</td>
             <td>{{ $item->product->name }}</td>
             <td>{{ $item->asset_value }}</td>
             <td>{{ $item->quantity }}</td>
-            <td>Total</td>
-            <td>Action</td>
+            <td>{{  $item->asset_value * $item->quantity }}</td>
+            <td>
+                @php
+                    $buttons = [
+                        'trash' => [
+                            'label' => 'Delete',
+                            'attributes' => [
+                                'href' => route('item.remove', ['product' => $item->id]),
+                            ]
+                        ]
+                    ];
+                @endphp
+                {!! table_buttons($buttons, false) !!}
+            </td>
         </tr>
     @endforeach
     <tr class="table-summary">
         <td colspan="4" class="text-right">Sub Total</td>
         <td class="text-right">
-            $0<br>
+            ${{ $subPrice }}<br>
         </td>
         <input type="hidden" name="old_order_sub_total" id="old_order_sub_total" value="0">
         <td></td>
@@ -50,7 +70,7 @@
         </td>
         <td class="text-right">
             <strong>
-                $0
+                ${{ $totalPrice }}
                 <input type="hidden" value="0" id="totalOrderAmount">
             </strong>
             <span class="affirm_price_span" style="display: none"><br><b>$0/mo</b><br>(for 3 months)</span>

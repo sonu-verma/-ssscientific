@@ -24,7 +24,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Proposal Request Form</h5>
+                            <h5>Quotation Request Form</h5>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -35,12 +35,6 @@
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="text-align: left;margin-top: 9px;">
                                             <label class="">Select Primary Customer<span class="validateClass">*</span></label>
-{{--                                            <select data-resource="user" style="width: 100%;" name="id_user" id="ddlUser" data-parent="#addQuote"--}}
-{{--                                                    onchange="return getUserDetails(this.value,1)"  --}}
-{{--                                                    required>--}}
-{{--                                                <option value="">Select customer</option>--}}
-{{--                                                <option value="1">Sonu Verma</option>--}}
-{{--                                            </select>--}}
                                             <select data-resource="user"
                                                     class="form-control"
                                                     style="width: 100%;"
@@ -52,7 +46,6 @@
                                                 <option value="">Select customer</option>
                                             </select>
                                         </div>
-
                                         <div class="col-md-4" style="text-align: left;margin-top: 9px;">
                                             <label class="">Currency Type<span class="validateClass">*</span></label>
                                             <select class="form-control" style="width: 100%;" name="currency_type" id="currency_type"
@@ -62,26 +55,27 @@
                                                 <option value="USD">USD</option>
                                             </select>
                                         </div>
+                                        <div class="row margin-bottom-20">
+                                            <div class="col-md-4">
+                                                <label for="phone_number">Order Type:</label>
+                                                <select class="form-control" id="order_type" name="order_type">
+                                                    <option value="">Select Order Type</option>
+                                                    <option value="1">Tender</option>
+                                                    <option value="0">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row margin-bottom-20">
-                                    <div class="col-md-4">
-                                        <label for="phone_number">Phone Number:</label>
-                                        <input type="number" name="phone_number" id="phone_number" class="form-control fixedOption" required>
-                                    </div>
-                                    <div class="col-md-4" style="margin-top: 2px;">
+                                        <div class="col-md-4">
+                                            <label for="phone_number">Phone Number:</label>
+                                            <input type="number" name="phone_number" id="phone_number" class="form-control fixedOption" required>
+                                        </div>
+                                        <div class="col-md-4" style="margin-top: 2px;">
                                         <label for="email">E-Mail Address:<span class="validateClass">*</span></label>
                                         <input type="email" name="email" id="email" class="form-control fixedOption">
                                     </div>
-                                    <div class="col-md-4">
-                                        <label for="relation">Relationship to the property:<span class="validateClass">*</span></label>
-                                        <select name="relation" id="relation" class="form-control fixedOption" required>
-                                            <option value="">Select Option</option>
-                                            <option value="Owner">Owner</option>
-                                            <option value="Agent">Agent</option>
-                                            <option value="Developer">Developer</option>
-                                        </select>
                                     </div>
-                                </div>
                                 </div>
                                 <h6 class="title_in_caps">
                                     Staging Address:
@@ -114,7 +108,6 @@
                                         <select class="form-control" id="state" name="state">
                                             <option value="">Select State</option>
                                             <option value="1">MH</option>
-
                                         </select>
                                         <span class="text-danger" id="state_error"></span>
                                     </div>
@@ -167,19 +160,15 @@
 
                                 <h6 class="title_in_caps">Miscellaneous Information:</h6>
                                 <div class="proposal-boxx--View">
-                                    <div class="form-group margin-bottom-20  m-t-5">
+                                    <div class="form-group margin-bottom-20  m-t-5 depend_on_order_type">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="reference_from" style="min-height: 33px">How did you hear about PRHS?<span class="noValidateClass">(optional)</span></label>
+                                                <label for="reference_from" style="min-height: 33px">How did you hear about Us?<span class="noValidateClass">(optional)</span></label>
                                                 <input type="text" name="reference_from" id="reference_from" class="form-control" required>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="referral_person" style="min-height: 33px">Who referred us to you?<span class="noValidateClass">(optional)</span><br> (Name)</label>
+                                                <label for="referral_person" style="min-height: 33px">Who referred us to you?<span class="noValidateClass">(optional)</span></label>
                                                 <input type="text" name="referral" id="referral" class="form-control" required>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="referral_agency">Which agency?<span class="noValidateClass">(optional)</span></label>
-                                                <input type="text" name="referral_agency" id="referral_agency" class="form-control" style="margin-top: 14px;" required>
                                             </div>
                                         </div>
                                     </div>
@@ -194,10 +183,10 @@
                                     <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label for="notes">Proposal Request Notes<span class="noValidateClass">(optional)</span></label>
+                                            <label for="notes">Quotation Request Notes<span class="noValidateClass">(optional)</span></label>
                                             <textarea cols="10" rows="5" class="form-control" id="notes" name="notes" aria-describedby="emailHelp" placeholder="Notes"></textarea>
                                         </div>
-                                    </div>
+                                        </div>
                                 </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary pull-right quoteFormBtn quoteNewForm" id="quoteFormBtn" data-type="save">Submit</button>

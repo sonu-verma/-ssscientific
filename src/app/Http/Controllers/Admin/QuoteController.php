@@ -7,6 +7,7 @@ use App\Models\Admin\ProductCartItems;
 use App\Models\Admin\Quote;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -367,6 +368,34 @@ class QuoteController extends Controller
             'model' => $quote,
         ];
         $page = 'admin.pdf.proposal';
+        $prefix='Quote';
+
+        if($type == 'pdf'){
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->getDomPDF()->set_option("enable_php", true);
+            $pdf->loadView($page, $var);
+            return $pdf->download(strtoupper($prefix).'-'.time().'-' . $quote_id . '.pdf');
+
+        }else{
+            return view($page, $var);
+        }
+    }
+
+    public function changeStatus(Request $request,$quote_id){
+        dd($quote_id);
+    }
+    public function downloadInvoice(Request $request,$quote_id){
+        $type = $request->get('type');
+        $layout = true;
+        if ($type == 'html') {
+            $layout = false;
+        }
+        $var = [
+            'title' => 'Testing Page Number In Body',
+            'layout' => $layout,
+            'model' => ['test' => 'test'],
+        ];
+        $page = 'admin.pdf.invoice';
         $prefix='Quote';
 
         if($type == 'pdf'){

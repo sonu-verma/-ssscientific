@@ -280,7 +280,7 @@ function initializeCustomerSelect2(){
 function initializeProductSelect2(){
     $('#ddlProducts').select2({
         ajax: {
-            url: "/ajax/products",
+            url: "/admin/ajax/products",
             dataType: 'json',
             delay: 250,
             method: 'get',
@@ -362,7 +362,7 @@ function searchProduct(val,type, isUpdate = false){
     $('.productResultContainer').html('<p>Loading...</p>');
     $.ajax({
         type: 'get',
-        url: "/ajax/product",
+        url: "/admin/ajax/product",
         data: {id:val},
         success: function (data) {
             console.log('data',data)

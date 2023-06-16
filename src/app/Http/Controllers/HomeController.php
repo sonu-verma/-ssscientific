@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -68,7 +69,7 @@ class HomeController extends Controller
         });
         $userType = [];
         $tblUser = User::getTableName();
-        $source = User::where($tblUser.'.status', '!=', 3);
+        $source = User::where('id','!=', Auth::user()->id)->where([$tblUser.'.status' => 1,$tblUser.'.role_id' => User::ROLE_CUSTOMER]);
 
 
         if ($searchTerm !== '' && strlen($searchTerm) > 0) {

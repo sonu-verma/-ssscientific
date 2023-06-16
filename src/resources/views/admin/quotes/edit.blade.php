@@ -51,10 +51,6 @@
                                                     </option>
                                                 @endif
                                             </select>
-{{--                                            <select data-resource="user" style="width: 100%;" name="id_user" id="ddlUser" data-parent="#addQuote" style="width: 100%;">--}}
-{{--                                                <option value="2" >Alaska</option>--}}
-{{--                                                <option value="1" {{ $model->id_user == 1?'selected':'' }}>Alaska</option>--}}
-{{--                                            </select>--}}
                                         </div>
                                         <div class="col-md-4" style="text-align: left;margin-top: 9px;">
                                             <label class="">Currency Type<span class="validateClass">*</span></label>
@@ -69,6 +65,16 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div class="row margin-bottom-20">
+                                            <div class="col-md-4">
+                                                <label for="phone_number">Order Type:</label>
+                                                <select class="form-control" id="order_type" name="order_type">
+                                                    <option value="">Select Order Type</option>
+                                                    <option value="1">Tender</option>
+                                                    <option value="0">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4">
@@ -79,15 +85,15 @@
                                             <label for="email">E-Mail Address:<span class="validateClass">*</span></label>
                                             <input type="email" name="email" id="email"  value="{{ $model->email }}" class="form-control fixedOption">
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="relation">Relationship to the property:<span class="validateClass">*</span></label>
-                                            <select name="relation" id="relation" class="form-control fixedOption" required>
-                                                <option value="">Select Option</option>
-                                                <option value="Owner" {{ $model->related == 'Owner'?'selected':'' }}>Owner</option>
-                                                <option value="Agent"  {{ $model->related == 'Agent'?'selected':'' }}>Agent</option>
-                                                <option value="Developer"  {{ $model->related == 'Developer'?'selected':'' }}>Developer</option>
-                                            </select>
-                                        </div>
+{{--                                        <div class="col-md-4">--}}
+{{--                                            <label for="relation">Relationship to the property:<span class="validateClass">*</span></label>--}}
+{{--                                            <select name="relation" id="relation" class="form-control fixedOption" required>--}}
+{{--                                                <option value="">Select Option</option>--}}
+{{--                                                <option value="Owner" {{ $model->related == 'Owner'?'selected':'' }}>Owner</option>--}}
+{{--                                                <option value="Agent"  {{ $model->related == 'Agent'?'selected':'' }}>Agent</option>--}}
+{{--                                                <option value="Developer"  {{ $model->related == 'Developer'?'selected':'' }}>Developer</option>--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
                                 <h6 class="title_in_caps">
@@ -174,19 +180,15 @@
 
                                 <h6 class="title_in_caps">Miscellaneous Information:</h6>
                                 <div class="proposal-boxx--View">
-                                    <div class="form-group margin-bottom-20  m-t-5">
+                                    <div class="form-group margin-bottom-20  m-t-5 depend_on_order_type">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="reference_from" style="min-height: 33px">How did you hear about PRHS?<span class="noValidateClass">(optional)</span></label>
-                                                <input type="text" name="reference_from"  value="{{ $model->reference_from }}" id="reference_from" class="form-control" required>
+                                                <label for="reference_from" style="min-height: 33px">How did you hear about US?<span class="noValidateClass">(optional)</span></label>
+                                                <input type="text" name="reference_from"  value="{{ $model->reference_from }}" id="reference_from" class="form-control">
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4 depend">
                                                 <label for="referral_person" style="min-height: 33px">Who referred us to you?<span class="noValidateClass">(optional)</span><br> (Name)</label>
-                                                <input type="text" name="referral"  value="{{ $model->referral }}" id="referral" class="form-control" required>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="referral_agency">Which agency?<span class="noValidateClass">(optional)</span></label>
-                                                <input type="text" name="referral_agency"  value="{{ $model->referral_agency }}" id="referral_agency" class="form-control" style="margin-top: 14px;" required>
+                                                <input type="text" name="referral"  value="{{ $model->referral }}" id="referral" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -201,7 +203,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label for="notes">Proposal Request Notes<span class="noValidateClass">(optional)</span></label>
+                                                <label for="notes">Quotation Request Notes<span class="noValidateClass">(optional)</span></label>
                                                 <textarea cols="10" rows="5" class="form-control" id="notes" name="notes" aria-describedby="emailHelp" placeholder="Notes">{{ $model->notes }}</textarea>
                                             </div>
                                         </div>
@@ -259,9 +261,7 @@
                                 <button class="btn pull-right m-l-10 btn btn-success"
                                         type="button">Send Proposal to Internal
                                 </button>
-                                <button class="btn btn-primary pull-right m-l-10" type="button"
-                                        id="update_proposal">View Proposal
-                                </button>
+                                @if($model->status == Quote::ACTION_STATUS_APPROVED)
                                 <button class="btn btn-success pull-right m-l-10 approvedButton"
                                         type="button" data-toggle="modal" data-target="#confirmApprovalModal">Approve Proposal
                                 </button>
@@ -279,6 +279,43 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+    <div class="modal fade" id="confirmApprovalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Please Confirm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -26px !important">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="phone_number">Status Type:</label>
+                            <select class="form-control" id="action_type" name="action_type">
+                                <option value="">Select Order Type</option>
+                                <option value="1">Approved</option>
+                                <option value="2">Reject</option>
+                                <option value="3">Hold</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="notes">Remark</label>
+                            <textarea cols="10" rows="5" class="form-control" id="remark" name="remark" aria-describedby="emailHelp" placeholder="Remark">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirmApprovalBtn" id="confirmApprovalBtn"
+                            onclick="return quote.approveProposal('{{route('quote.changeStatus', ['quote_id' => $model->id])}}')">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('pageScript')
