@@ -31,7 +31,7 @@
                             <div class="inner">
                                 <h3>{{ $totalQuotes }}</h3>
 
-                                <p>New Quotes</p>
+                                <p>New Quotation</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -44,9 +44,9 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                <h3>{{ $approvedQuotes }}</h3>
 
-                                <p>Bounce Rate</p>
+                                <p>Approved Quotation</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
@@ -59,9 +59,9 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>44</h3>
+                                <h3>{{  $otherQuotes }}</h3>
 
-                                <p>User Registrations</p>
+                                <p>Other Quotation</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
@@ -74,9 +74,9 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>65</h3>
+                                <h3>{{  $rejectedQuotes }}</h3>
 
-                                <p>Unique Visitors</p>
+                                <p>Rejected Quotation</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>

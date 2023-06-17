@@ -203,7 +203,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary pull-right quoteFormBtn quoteNewForm" id="quoteFormBtn" data-type="save">Submit</button>
+                                <button type="submit" class="btn btn-primary pull-right quoteFormBtn quoteNewForm" id="quoteFormBtn" data-type="save">Save & Continue</button>
                                 <button type="submit" class="btn btn-primary modalClose" data-dismiss="modal" aria-label="Close" >Cancel</button>
                             </form>
                         </div>
@@ -249,7 +249,7 @@
                         </div>
                         <div class="card-block">
                             <div class="cartItemsBlock">
-                                Please wait..
+                                <div class="loadProducts">Please wait..</div>
                             </div>
                             @if($model)
                                 <div class="row">
@@ -281,11 +281,11 @@
                                             type="button" style="display: {{ ($model->action_type == \App\Models\Admin\Quote::ACTION_STATUS_APPROVED)?'inline':'none' }}">Quote Approved
                                     </button>
                                     <a class="btn btn-primary pull-right m-l-10" id="invoiceDownload"
-                                       target="_blank" href="{{ route('invoice.download',['quote_id' => $model->id,'type'=>'pdf']) }}" style="display: {{ ($model->action_type == \App\Models\Admin\Quote::ACTION_STATUS_APPROVED)?'inline':'none' }}">
+                                       target="_blank" href="{{ route('invoice.download',['quote_id' => $model->id,'type'=>'pdf']) }}" style="display: {{ ($model->action_type == \App\Models\Admin\Quote::ACTION_STATUS_APPROVED)?'inline-block':'none' }};margin-right:5px;">
                                         Download Invoice
                                     </a>
                                     <button class="btn btn-success pull-right m-l-10 approvedButton"
-                                            type="button" data-toggle="modal" data-target="#confirmApprovalModal"  style="display: {{ !$model->action_type?'inline':'none' }}">Approve Quote
+                                            type="button" data-toggle="modal" data-target="#confirmApprovalModal"  style="display: {{ !$model->action_type?'inline-block':'none' }}">Approve Quote
                                     </button>
 
                                 <a class="btn btn-primary pull-right m-l-10" id="proposalDownload1"

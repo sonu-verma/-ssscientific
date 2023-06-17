@@ -38,3 +38,17 @@ label{
     padding: 14px;
     text-align: right;
 }
+
+button.btn {
+    height: 35px;
+    width: 174px;
+}
+
+.btnRowList a {
+    height: 35px !important;
+}
+.loadProducts {
+    text-align: center;
+    font-size: 35px;
+    margin-top: 32px;
+}

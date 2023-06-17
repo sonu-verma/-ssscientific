@@ -51,7 +51,12 @@
     <tr class="table-summary">
         <td colspan="4" class="text-right">Sub Total</td>
         <td class="text-right">
-            {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$subPrice }}<br>
+            @if($quote)
+                {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$subPrice }}
+            @else
+                0
+            @endif
+                <br>
         </td>
         <input type="hidden" name="old_order_sub_total" id="old_order_sub_total" value="0">
         <td></td>
@@ -70,7 +75,7 @@
         </td>
         <td class="text-right">
             <strong>
-                {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$totalPrice }}
+                {{ $quote?\App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$totalPrice:0 }}
                 <input type="hidden" value="0" id="totalOrderAmount">
             </strong>
             <span class="affirm_price_span" style="display: none"><br><b>$0/mo</b><br>(for 3 months)</span>

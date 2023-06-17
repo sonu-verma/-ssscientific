@@ -94,9 +94,8 @@ var quote = {
                 $('#confirmApprovalModal').modal('hide');
                 $('.approvedButton').removeAttr('onclick');
                 $('.approvedButton').text('Quote Approved');
-                // $('.placeOrderBtn').css('display','none');
-                // $('.docuSignButton').css('display','block');
                 $('#update_proposal').css('display','none');
+                $('#invoiceDownload').show();
                 $('.approvedProposalDiv').html(response.approvedMsg);
                 messages.saved('Proposal', response.message);
             }else{
@@ -110,6 +109,7 @@ var quote = {
 
 var itemlist = {
     add:function (e, url, combination_sku,product_sku) {
+        $('.cartItemsBlock').html('<div class="loadProducts">Please wait..</div>');
         var $tr = $(e).closest('tr');
 
         if($tr.find('._Qty').val()==''){
@@ -148,6 +148,7 @@ var itemlist = {
         // if(typeof url === typeof undefined){
         //     url = itemsUrl;
         // }
+        $('.cartItemsBlock').html('<div class="loadProducts">Please wait..</div>');
         if(typeof e === typeof undefined || !$(e).length){
             e = '.cartItemsBlock';
         }
