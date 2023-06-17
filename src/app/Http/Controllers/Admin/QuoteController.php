@@ -45,10 +45,11 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
-        $formType = $request->get('formType');
-        $quoteStatus =  Quote::QUOTE_DRAFT;
-        if(!array_key_exists('isDraft',$request->all())){
-            $quoteStatus = Quote::QUOTE_REQUESTED;
+        try {
+            $formType = $request->get('formType');
+            $quoteStatus =  Quote::QUOTE_DRAFT;
+            if(!array_key_exists('isDraft',$request->all())){
+                $quoteStatus = Quote::QUOTE_REQUESTED;
 //            $validator = $this->validateDetails($request);
 //            if ($validator->fails()) {
 //                return response()->json([
@@ -57,65 +58,73 @@ class QuoteController extends Controller
 //                ]);
 //            }
 
-        }
-        if(array_key_exists('quote_no',$request->all())){
-            $quotes = Quote::where('quote_no',$request->input('quote_no'))->get()->first();
-        }else{
-            $quotes = new Quote();
-            $quotes->created_at = date('Y-m-d h:i:s');
-        }
-
-        $customerEmail = $request->input('email');
-        $quotes->cust_id = $request->input('id_user');
-        $quotes->phone_number = $request->input('phone_number');
-        $quotes->email = $request->input('email');
-        $quotes->address = $request->input('address');
-        $quotes->apt_no = $request->input('apt_no');
-        $quotes->zipcode = $request->input('zipcode');
-        $quotes->city = $request->input('city');
-        $quotes->state = $request->input('state');
-        $quotes->billing_option = (array_key_exists('billingChk', $request->all()))?1:0;
-        $quotes->billing_address = $request->input('billing_address');
-        $quotes->billing_apt_no = $request->input('billing_apt_no');
-        $quotes->billing_zipcode = $request->input('billing_zipcode');
-        $quotes->billing_city = $request->input('billing_city');
-        $quotes->billing_state = $request->input('billing_state');
-        $quotes->relation = $request->input('relation');
-        $quotes->reference_from = $request->input('reference_from');
-        $quotes->referral = $request->input('referral');
-        $quotes->referral_agency = $request->input('referral_agency');
-        $quotes->is_enquired = $request->input('is_enquired');
-        $quotes->currency_type = $request->input('currency_type');
-        $quotes->notes = $request->input('notes');
-        $quotes->status = $quoteStatus;
-        $quotes->created_by = Auth::user()->id;
-        $quotes->save();
-        if($quotes->wasRecentlyCreated){
-            $quoteNo = generateQuoteNo($quotes->id);
-            $quotes->quote_no = $quoteNo;
-            $quotes->save();
-            return response()->json([
-                "status" => 200,
-                "quoteId" => $quotes->id,
-                "message" => "Proposal saved successfully."
-            ]);
-        }else{
-            if($formType == 'saveNext'){
-                $result = $this->actionCreateQuote($request,$quotes->id);
-//                return redirect(route('prhsOrder.create', ['token' => $result['token'],'quote_no' => $result['quote_no']]));
-                return response()->json([
-                    "status" => 200,
-                    "quote_no" => $result['quote_no'],
-                    "token" => $result['token'],
-                    "message" => "Proposal updated successfully"
-                ]);
+            }
+            if(array_key_exists('quote_no',$request->all())){
+                $quotes = Quote::where('quote_no',$request->input('quote_no'))->get()->first();
             }else{
+                $quotes = new Quote();
+                $quotes->created_at = date('Y-m-d h:i:s');
+            }
+
+            $customerEmail = $request->input('email');
+            $quotes->cust_id = $request->input('id_user');
+            $quotes->order_type = $request->input('order_type');
+            $quotes->phone_number = $request->input('phone_number');
+            $quotes->email = $request->input('email');
+            $quotes->address = $request->input('address');
+            $quotes->apt_no = $request->input('apt_no');
+            $quotes->zipcode = $request->input('zipcode');
+            $quotes->city = $request->input('city');
+            $quotes->state = $request->input('state');
+            $quotes->billing_option = (array_key_exists('billingChk', $request->all()))?1:0;
+            $quotes->billing_address = $request->input('billing_address');
+            $quotes->billing_apt_no = $request->input('billing_apt_no');
+            $quotes->billing_zipcode = $request->input('billing_zipcode');
+            $quotes->billing_city = $request->input('billing_city');
+            $quotes->billing_state = $request->input('billing_state');
+            $quotes->relation = $request->input('relation');
+            $quotes->reference_from = $request->input('reference_from');
+            $quotes->referral = $request->input('referral');
+            $quotes->referral_agency = $request->input('referral_agency');
+            $quotes->is_enquired = $request->input('is_enquired');
+            $quotes->currency_type = $request->input('currency_type');
+            $quotes->notes = $request->input('notes');
+            $quotes->status = $quoteStatus;
+            $quotes->created_by = Auth::user()->id;
+            $quotes->save();
+            if($quotes->wasRecentlyCreated){
+                $quoteNo = generateQuoteNo($quotes->id);
+                $quotes->quote_no = $quoteNo;
+                $quotes->save();
                 return response()->json([
                     "status" => 200,
                     "quoteId" => $quotes->id,
-                    "message" => "Proposal updated successfully"
+                    "message" => "Proposal saved successfully."
                 ]);
+            }else{
+                if($formType == 'saveNext'){
+                    $result = $this->actionCreateQuote($request,$quotes->id);
+//                return redirect(route('prhsOrder.create', ['token' => $result['token'],'quote_no' => $result['quote_no']]));
+                    return response()->json([
+                        "status" => 200,
+                        "quote_no" => $result['quote_no'],
+                        "token" => $result['token'],
+                        "message" => "Proposal updated successfully"
+                    ]);
+                }else{
+                    return response()->json([
+                        "status" => 200,
+                        "quoteId" => $quotes->id,
+                        "message" => "Proposal updated successfully"
+                    ]);
+                }
             }
+        }catch (\Exception $e){
+            return response()->json([
+                "status" => 400,
+                "quoteId" => '',
+                "message" => $e->getMessage()
+            ]);
         }
     }
 
@@ -155,6 +164,7 @@ class QuoteController extends Controller
     {
         $customerEmail = $request->input('email');
         $quote->cust_id = $request->input('id_user');
+        $quote->order_type = $request->input('order_type');
         $quote->phone_number = $request->input('phone_number');
         $quote->email = $request->input('email');
         $quote->address = $request->input('address');
@@ -381,9 +391,6 @@ class QuoteController extends Controller
         }
     }
 
-    public function changeStatus(Request $request,$quote_id){
-        dd($quote_id);
-    }
     public function downloadInvoice(Request $request,$quote_id){
         $type = $request->get('type');
         $layout = true;
@@ -407,5 +414,34 @@ class QuoteController extends Controller
         }else{
             return view($page, $var);
         }
+    }
+
+    public function changeStatus(Request $request,$quote_id){
+        $quoteNo = $quote_id;
+        $quotes = Quote::where('id',$quoteNo)->get()->first();
+
+        try {
+            if($quotes){
+                $quotes->action_type = $request->get('action_type');
+                $quotes->action_by = Auth::id();
+                $quotes->action_at = time();
+                $quotes->action_note = $request->get('remark');;
+                $quotes->save();
+
+                $adminName = User::getApprover($quotes->action_by);
+                return response()->json([
+                    'statusCode' => 200,
+                    'approvedMsg' => '<label>Quote Approved By: '.$adminName.' <br />Quote Approved On: '.date('d-m-Y',$quotes->action_at).'</span></label>',
+                    'message' => "Proposal approved successfully.",
+                ], Response::HTTP_OK);
+            }
+        }catch (\Exception $e){
+            dd($e->getMessage());
+        }
+//        return response()->json([
+//            'statusCode' => 400,
+//            'approvedMsg' => '',
+//            'message' => "Something went wrong,Please try again.",
+//        ], Response::HTTP_BAD_REQUEST);
     }
 }

@@ -84,6 +84,28 @@ var quote = {
         });
         return false;
     },
+    approveProposal: function(url){
+        $('.confirmApprovalBtn').prop("disabled", true);
+        $('.approvedProposalDiv').html('');
+        var action_type = $('#action_type').val();
+        var remark = $('#remark').val();
+        $.post(url,{ action_type,remark} ,function(response){
+            if(response.statusCode == 200){
+                $('#confirmApprovalModal').modal('hide');
+                $('.approvedButton').removeAttr('onclick');
+                $('.approvedButton').text('Quote Approved');
+                // $('.placeOrderBtn').css('display','none');
+                // $('.docuSignButton').css('display','block');
+                $('#update_proposal').css('display','none');
+                $('.approvedProposalDiv').html(response.approvedMsg);
+                messages.saved('Proposal', response.message);
+            }else{
+                messages.error('Proposal', response.message);
+                $('.confirmApprovalBtn').prop("disabled", false);
+            }
+        });
+        return false;
+    },
 }
 
 var itemlist = {
@@ -148,6 +170,7 @@ var itemlist = {
 }
 $(document).on('click','#quoteFormBtn',function(e){
     e.preventDefault();
+    $(this).attr('disabled',true);
     var url = $('#quoteForm').attr('action');
     $.ajax({
         url: url,
@@ -155,12 +178,15 @@ $(document).on('click','#quoteFormBtn',function(e){
         dataType: 'json',
         data: $('#quoteForm').serialize()+"&formType=",
         success:function(response){
+            console.log('response',response)
             if(response.status){
+                $(this).attr('disabled',false);
                 messages.saved("Quote", response.message);
                 $('#quoteForm')[0].reset();
                 window.location.href=adminUrl+'/quote/edit/'+response.quoteId;
                 // window.location.reload();
             }else{
+                $(this).attr('disabled',false);
                 $('.quoteFormBtn').prop('disabled', false);
                 if(response.statusCode == 400){
                     var str = '';
@@ -178,6 +204,8 @@ $(document).on('click','#quoteFormBtn',function(e){
 
                     });
                     $('.quote_error').html(str);
+                    messages.error("Error", 'Please enter valid form');
+
                 }else{
                     messages.error('Error', response.message);
                 }

@@ -69,4 +69,13 @@ class User extends Authenticatable
     public function getFullName(){
         return trim($this->first_name.' '.$this->last_name);
     }
+
+    public static function getApprover($userId){
+        $user = User::where('id',$userId)->get()->first();
+        if($user){
+            return $user->full_name;
+        }else{
+            return 'NA';
+        }
+    }
 }

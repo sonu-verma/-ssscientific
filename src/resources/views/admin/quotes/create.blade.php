@@ -55,21 +55,19 @@
                                                 <option value="USD">USD</option>
                                             </select>
                                         </div>
-                                        <div class="row margin-bottom-20">
-                                            <div class="col-md-4">
-                                                <label for="phone_number">Order Type:</label>
-                                                <select class="form-control" id="order_type" name="order_type">
-                                                    <option value="">Select Order Type</option>
-                                                    <option value="1">Tender</option>
-                                                    <option value="0">Other</option>
-                                                </select>
-                                            </div>
+                                        <div class="col-md-4" style="text-align: left;margin-top: 9px;">
+                                            <label for="phone_number">Order Type:</label>
+                                            <select class="form-control" id="order_type" name="order_type">
+                                                <option value="">Select Order Type</option>
+                                                <option value="1">Tender</option>
+                                                <option value="0">Other</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4">
                                             <label for="phone_number">Phone Number:</label>
-                                            <input type="number" name="phone_number" id="phone_number" class="form-control fixedOption" required>
+                                            <input type="text" name="phone_number" id="phone_number" class="form-control fixedOption" required>
                                         </div>
                                         <div class="col-md-4" style="margin-top: 2px;">
                                         <label for="email">E-Mail Address:<span class="validateClass">*</span></label>
@@ -170,12 +168,8 @@
                                                 <label for="referral_person" style="min-height: 33px">Who referred us to you?<span class="noValidateClass">(optional)</span></label>
                                                 <input type="text" name="referral" id="referral" class="form-control" required>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
                                             <div class="col-md-4">
-                                                <label for="is_enquired">Is previously enquired?<span class="noValidateClass">(optional)</span></label>
+                                                <label for="is_enquired"  style="min-height: 33px">Is previously enquired?<span class="noValidateClass">(optional)</span></label>
                                                 <input type="text" name="is_enquired" id="is_enquired" class="form-control" required>
                                             </div>
                                         </div>

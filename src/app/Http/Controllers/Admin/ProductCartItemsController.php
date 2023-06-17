@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ProductCartItems;
+use App\Models\Admin\Quote;
 use Illuminate\Http\Request;
 
 class ProductCartItemsController extends Controller
@@ -41,8 +42,10 @@ class ProductCartItemsController extends Controller
 //        dd($request->all());
 //        $quote_id = $request->get('quote_id');
         $items = ProductCartItems::where('quote_id',$quote_id)->with('product')->get()->all();
+        $quote = Quote::where('id',$quote_id)->get()->first();
         $html =  view('admin.quotes.items',[
-            'items' => $items
+            'items' => $items,
+            'quote' => $quote,
         ])->render();
 
         return response()->json([

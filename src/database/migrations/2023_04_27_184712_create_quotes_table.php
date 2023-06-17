@@ -23,13 +23,13 @@ return new class extends Migration
             $table->string('phone_number', 50)->nullable()->unique();
             $table->string('email', 50)->nullable()->unique();
 //            $table->text('property_address')->nullable();
-            $table->text('address');
+            $table->text('address')->nullable();
             $table->string('apt_no', 255)->nullable();
             $table->string('zipcode', 255)->nullable();
             $table->string('city', 255)->nullable();
             $table->string('state', 50)->nullable();
             $table->integer('billing_option')->default(0);
-            $table->text('billing_address');
+            $table->text('billing_address')->nullable();
             $table->string('billing_apt_no', 50)->nullable();
             $table->string('billing_zipcode', 50)->nullable();
             $table->string('billing_city', 50)->nullable();
@@ -45,7 +45,7 @@ return new class extends Migration
             $table->integer('action_type')->nullable();
             $table->integer('action_by')->nullable();
             $table->integer('action_at')->nullable();
-            $table->text('action_note');
+            $table->text('action_note')->nullable();
             $table->integer('created_by')->nullable();
             $table->timestamps();
         });

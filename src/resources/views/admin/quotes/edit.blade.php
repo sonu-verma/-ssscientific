@@ -65,15 +65,13 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="row margin-bottom-20">
-                                            <div class="col-md-4">
-                                                <label for="phone_number">Order Type:</label>
-                                                <select class="form-control" id="order_type" name="order_type">
-                                                    <option value="">Select Order Type</option>
-                                                    <option value="1">Tender</option>
-                                                    <option value="0">Other</option>
-                                                </select>
-                                            </div>
+                                        <div class="col-md-4" style="text-align: left;margin-top: 9px;">
+                                            <label for="order_type">Order Type:</label>
+                                            <select class="form-control" id="order_type" name="order_type">
+                                                <option value="">Select Order Type</option>
+                                                <option value="1"  {{ ($model->order_type == 1)?'selected':'' }}>Tender</option>
+                                                <option value="0"  {{ ($model->order_type == 0)?'selected':'' }}>Other</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row margin-bottom-20">
@@ -190,12 +188,8 @@
                                                 <label for="referral_person" style="min-height: 33px">Who referred us to you?<span class="noValidateClass">(optional)</span><br> (Name)</label>
                                                 <input type="text" name="referral"  value="{{ $model->referral }}" id="referral" class="form-control">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
                                             <div class="col-md-4">
-                                                <label for="is_enquired">Is previously enquired?<span class="noValidateClass">(optional)</span></label>
+                                                <label for="is_enquired" style="min-height: 33px">Is previously enquired?<span class="noValidateClass">(optional)</span></label>
                                                 <input type="text" name="is_enquired" id="is_enquired" class="form-control" value="{{ $model->is_enquired }}" required>
                                             </div>
                                         </div>
@@ -255,16 +249,45 @@
                         </div>
                         <div class="card-block">
                             <div class="cartItemsBlock">
-
+                                Please wait..
                             </div>
+                            @if($model)
+                                <div class="row">
+                                    <div class="col-lg-6" style="margin-top: 12px;text-align: left;margin-left: 13px;">
+                                        <div class="approvedProposalDiv fade-in-primary">
+                                            @if($model->action_by)
+                                                <label>
+                                                    Proposal Approved By:
+                                                        <?php
+                                                        if ($model->action_type) {
+                                                            $adminName = '';
+                                                            if ((int)$model->action_by > 0) {
+                                                                $adminName = \App\Models\User::getApprover($model->action_by);
+                                                                echo $adminName . ' <br />Quote Approved On: ' . date('d-m-Y',$model->action_at);
+                                                            }
+                                                        }
+                                                        ?>
+                                                </label>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="btnRowList">
                                 <button class="btn pull-right m-l-10 btn btn-success"
                                         type="button">Send Proposal to Internal
                                 </button>
-                                @if($model->status == Quote::ACTION_STATUS_APPROVED)
-                                <button class="btn btn-success pull-right m-l-10 approvedButton"
-                                        type="button" data-toggle="modal" data-target="#confirmApprovalModal">Approve Proposal
-                                </button>
+                                    <button class="btn btn-success pull-right m-l-10"
+                                            type="button" style="display: {{ ($model->action_type == \App\Models\Admin\Quote::ACTION_STATUS_APPROVED)?'inline':'none' }}">Quote Approved
+                                    </button>
+                                    <a class="btn btn-primary pull-right m-l-10" id="invoiceDownload"
+                                       target="_blank" href="{{ route('invoice.download',['quote_id' => $model->id,'type'=>'pdf']) }}" style="display: {{ ($model->action_type == \App\Models\Admin\Quote::ACTION_STATUS_APPROVED)?'inline':'none' }}">
+                                        Download Invoice
+                                    </a>
+                                    <button class="btn btn-success pull-right m-l-10 approvedButton"
+                                            type="button" data-toggle="modal" data-target="#confirmApprovalModal"  style="display: {{ !$model->action_type?'inline':'none' }}">Approve Quote
+                                    </button>
+
                                 <a class="btn btn-primary pull-right m-l-10" id="proposalDownload1"
                                    target="_blank" href="{{ route('quote.download',['quote_id' => $model->id,'type'=>'pdf']) }}">Download Proposal</a>
                                 <button class="btn pull-right m-l-10 btn btn-success"
@@ -291,21 +314,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-4">
-                            <label for="phone_number">Status Type:</label>
+                        <div class="col-md-12">
+                            <label for="action_type">Status Type:</label>
                             <select class="form-control" id="action_type" name="action_type">
                                 <option value="">Select Order Type</option>
-                                <option value="1">Approved</option>
-                                <option value="2">Reject</option>
-                                <option value="3">Hold</option>
+                                <option value="2">Approved</option>
+                                <option value="3">Reject</option>
+                                <option value="4">Hold</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <label for="notes">Remark</label>
-                            <textarea cols="10" rows="5" class="form-control" id="remark" name="remark" aria-describedby="emailHelp" placeholder="Remark">
-                            </textarea>
+                            <textarea cols="10" rows="5" class="form-control" id="remark" name="remark" aria-describedby="emailHelp" placeholder="Remark"></textarea>
                         </div>
                     </div>
                 </div>

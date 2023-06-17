@@ -22,9 +22,11 @@ class Quote extends BaseModel
 
     const STATUS_ACTIVE = 1;
 
-    const ACTION_STATUS_APPROVED = 1;
-    const ACTION_STATUS_REJECTED = 2;
-    const ACTION_STATUS_HOLD = 3;
+    const ACTION_STATUS_TEST = 0;
+    const ACTION_STATUS_CREATE = 1;
+    const ACTION_STATUS_APPROVED = 2;
+    const ACTION_STATUS_REJECTED = 3;
+    const ACTION_STATUS_HOLD = 4;
 
     const CURRENCY_TYPES = [
         "INR" => "INR",
@@ -38,6 +40,7 @@ class Quote extends BaseModel
         'token',
         'reference',
         'cust_id',
+        'order_type',
         'phone_number',
         'email',
         'address',
@@ -59,8 +62,10 @@ class Quote extends BaseModel
         'currency_type',
         'notes',
         'status',
-        'approved_by',
-        'approved_at',
+        'action_type',
+        'action_by',
+        'action_at',
+        'action_note',
         'created_at',
         'created_by',
         'updated_at',

@@ -9,6 +9,11 @@ class ProductCartItems extends BaseModel
 {
     use HasFactory;
 
+    const CURRENCY = [
+        'INR'  => '₹',
+        'USD'  => '$',
+    ];
+
     public function product(){
         return $this->belongsTo(Product::class,'product_id','id');
     }
