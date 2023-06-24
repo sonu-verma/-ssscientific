@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Proposal Request Form</h5>
+                            <h5>Quotation Request Form</h5>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

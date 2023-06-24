@@ -1,12 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Admin\QuoteController;
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CustomerController;
-use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ProductCartItemsController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PurchaseOrderController;
+use App\Http\Controllers\Admin\QuoteController;
+use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/roles','index')->name('roles');
             Route::get('/delete/role/{role}','deleteRole')->name('delete.role');
             Route::get('/edit/role/{role}','edit')->name('edit.role');
+            Route::get('/role/create','create')->name('create.role');
+            Route::post('/role/store','store')->name('store.role');
+            Route::post('/role/update','update')->name('update.role');
         });
         Route::controller(RolesController::class)->group(function () {
             Route::get('/categories','index')->name('categories');
@@ -61,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(QuoteController::class)->group(function () {
         Route::get('/quotes', 'index')->name('quotes');
         Route::get('/ajax/quotes', 'index')->name('ajax.quotes');
+        Route::post('/quote/details', 'getQuote')->name('ajax.getQuote');
         Route::get('/quote/create', 'create')->name('quote.add');
         Route::post('/quote/add', 'store')->name('quote.create');
         Route::post('/quote/update/{quote}', 'update')->name('quote.update');
@@ -73,6 +80,19 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/product/additem','addCartItem')->name('product.additem');
         Route::get('/quote/items/{id}','getItems')->name('getItems');
         Route::post('/remove/item','addCartItem')->name('item.remove');
+    });
+    Route::controller(InvoiceController::class)->group(function(){
+        Route::get('/invoices','index')->name('invoices');
+        Route::get('/invoice/create','create')->name('create.invoice');
+        Route::post('/invoice/store','store')->name('store.invoice');
+    });
+    Route::controller(PurchaseOrderController::class)->group(function(){
+        Route::get('/purchase-orders','index')->name('purchase.orders');
+        Route::get('/purchase-order/create','create')->name('create.purchase-order');
+        Route::post('/purchase-order/store','store')->name('store.purchaseOrder');
+        Route::get('/purchase-order/delete','destroy')->name('delete.purchaseOrder');
+        Route::get('/purchase-order/edit/{purchaseOrderId}','edit')->name('edit.purchaseOrder');
+        Route::post('/purchase-order/update/{purchaseOrder}','update')->name('update.purchaseOrder');
     });
 });
 

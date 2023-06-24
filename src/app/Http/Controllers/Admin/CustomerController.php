@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
     public function getCustomers(){
-        $customers = User::where('status',1)->get()->all();
+        $customers = User::where('status',1)->with('role')->get()->all();
         return view('admin.customers.index',[
             'customers' => $customers
         ]);
@@ -23,7 +24,10 @@ class CustomerController extends Controller
     }
 
     public function add(){
-        return view('admin.customers.create');
+        $roles = Role::where('status', 1)->get()->all();
+        return view('admin.customers.create',[
+            'roles' => $roles
+        ]);
     }
 
     public function updateCustomerForm(Request $request){
@@ -46,6 +50,10 @@ class CustomerController extends Controller
     }
 
     public function edit(User $user){
-        return view('admin.customers.edit',['model' => $user]);
+        $roles = Role::where('status', 1)->get()->all();
+        return view('admin.customers.edit',[
+            'model' => $user,
+            'roles' => $roles
+        ]);
     }
 }

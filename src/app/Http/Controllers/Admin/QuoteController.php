@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class QuoteController extends Controller
 {
@@ -444,4 +445,39 @@ class QuoteController extends Controller
 //            'message' => "Something went wrong,Please try again.",
 //        ], Response::HTTP_BAD_REQUEST);
     }
+
+    public function getQuote(Request $request) {
+        $searchTerm = trim($request->get('term', ''));
+        $page = trim($request->get('page', 1));
+        $limit = 10;
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        $currentPage = $page;
+        Paginator::currentPageResolver(function () use ($currentPage) {
+            return $currentPage;
+        });
+        $userType = [];
+        $tblQuote = Quote::getTableName();
+        $source = Quote::where([$tblQuote.'.status' => 1]);
+
+
+        if ($searchTerm !== '' && strlen($searchTerm) > 0) {
+            $source->where(function ($query) use ($searchTerm,$tblQuote) {
+                if (preg_match('/^[0-9]+$/', $searchTerm)) {
+                    $query->where($tblQuote.'.id', '=', $searchTerm);
+                } else {
+                    $query->where($tblQuote.'.quote_no', 'LIKE', $searchTerm.'%')
+                        ->orWhere($tblQuote.'.email', 'LIKE', $searchTerm . '%');
+                }
+            });
+        }
+        $source->orderBy($tblQuote.'.id', 'ASC')
+            ->groupBy($tblQuote.'.id');
+        $result = $source->paginate($limit, ['quotes.id','quotes.quote_no','quotes.email']);
+
+        return response()->json($result);
+    }
+
 }

@@ -52,3 +52,7 @@ button.btn {
     font-size: 35px;
     margin-top: 32px;
 }
+
+.error{
+    color:red;
+}

@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Customer</li>
+                        <li class="breadcrumb-item active">Users</li>
                     </ol>
                 </div>
             </div>
@@ -30,7 +30,6 @@
                         <div class="card-body">
                             <form name="customerForm" id="customerForm" action="{{ route('store.customer') }}" method="POST" autocomplete="off">
                                 {{ csrf_field() }}
-                                <h6 class="title_in_caps" style="margin-bottom: 9px !important;">Customer Information:</h6>
                                 <div class="margin-bottom-20">
                                     <input type="hidden" value="{{ $model->id }}" name="id">
                                     <div class="row margin-bottom-20">
@@ -44,7 +43,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label for="phone_number">Phone Number:</label>
-                                            <input type="number" name="phone_number" id="phone_number" class="form-control fixedOption" required value="{{ $model->phone_number }}">
+                                            <input type="text" name="phone_number" id="phone_number" class="form-control fixedOption" required value="{{ $model->phone_number }}">
                                         </div>
                                     </div>
                                     <div class="row margin-bottom-20">
@@ -56,8 +55,9 @@
                                             <label for="relation">Role:<span class="validateClass">*</span></label>
                                             <select name="role" id="role" class="form-control" required>
                                                 <option value="">Select Option</option>
-                                                <option value="1" {{ $model->role_id == 1?'selected': '' }}>Admin</option>
-                                                <option value="2" {{ $model->role_id == 2?'selected': '' }}>Executive</option>
+                                                @foreach($roles as $role)
+                                                    <option value="{{ $role->id }}" {{ $model->role_id == $role->id?'selected': '' }}>{{ $role->role_name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-4">

@@ -98,6 +98,29 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item  {{ ($prefix == '' && ($controllerName == 'InvoiceController' || $controllerName == 'PurchaseOrderController'))?'menu-open':'' }}">
+                    <a href="#" class="nav-link {{ ($prefix == '' && $controllerName == 'InvoiceController')?'active':'' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Order Info
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('purchase.orders') }}" class="nav-link  {{ $controllerName == 'PurchaseOrderController'?'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Purchase Order</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('invoices') }}" class="nav-link  {{ $controllerName == 'InvoiceController'?'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Invoices</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

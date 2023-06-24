@@ -25,7 +25,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="pull-right">
-                                <a href="" class="pull-right btn btn-primary" >Add</a>
+                                <a href="{{ route('create.role') }}" class="pull-right btn btn-primary" >Add</a>
                             </div>
                         </div>
                         <!-- /.card-header -->

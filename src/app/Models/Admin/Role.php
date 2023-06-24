@@ -12,4 +12,6 @@ class Role extends Model
         0 => "Inactive",
     ];
     use HasFactory;
+
+    protected $fillable = ['role_name','status'];
 }

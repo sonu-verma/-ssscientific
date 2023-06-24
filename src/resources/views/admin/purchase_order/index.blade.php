@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Customers</h1>
+                    <h1>Purchase Order</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item active">Purchase Order</li>
                     </ol>
                 </div>
             </div>
@@ -25,34 +25,32 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="pull-right">
-                                <a href="{{ route('create.customer') }}" class="pull-right btn btn-primary" >Add</a>
+                                <a href="{{ route('create.purchase-order') }}" class="pull-right btn btn-primary" >Add Purchase Order</a>
                             </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="customersTable" class="table table-bordered table-striped">
+                            <table id="poTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th class="subj_name">Id</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
+                                        <th>PO No.</th>
+                                        <th>Vendor</th>
+                                        <th>Attn</th>
                                         <th>Status</th>
-                                        <th>Role</th>
                                         <th>Created Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($customers as $customer)
-                                    <tr>
-                                            <td class="subj_name">{{ $customer->id }}</td>
-                                            <td>{{ $customer->full_name }}</td>
-                                            <td>{{ $customer->email }}</td>
-                                            <td>{{ $customer->phone_number }}</td>
-                                            <td>{{ status($customer->status) }}</td>
-                                            <td>{{ $customer->role?$customer->role->role_name:'NA' }}</td>
-                                            <td>{{ $customer->created_at }}</td>
+                                    @foreach($purchaseOrders as $purchaseOrder)
+                                        <tr>
+                                            <td>{{ $purchaseOrder->id }}</td>
+                                            <td>{{ $purchaseOrder->po_no }}</td>
+                                            <td>{{ $purchaseOrder->vendor->full_name }}</td>
+                                            <td>{{ $purchaseOrder->attn_no }}</td>
+                                            <td>{{ status($purchaseOrder->status) }}</td>
+                                            <td>{{ date('d-M-Y',strtotime($purchaseOrder->created_at)) }}</td>
                                             <td>
                                                 @php
                                                     $buttons = [
@@ -60,20 +58,20 @@
                                                             'label' => 'Delete',
                                                             'attributes' => [
                                         //                        'id' => $property->id.'_view',
-                                                                'href' => route('delete.customer', ['user' => $customer->id]),
+                                                                'href' => route('delete.purchaseOrder', ['purchaseOrder' => $purchaseOrder->id]),
                                                             ]
                                                         ],
                                                         'edit' => [
                                                             'label' => 'Edit',
                                                             'attributes' => [
-                                                                'href' => route('edit.customer', ['user' => $customer->id]),
+                                                                'href' => route('edit.purchaseOrder', ['purchaseOrderId' => $purchaseOrder->id]),
                                                             ]
                                                         ]
                                                     ];
                                                 @endphp
                                                 {!! table_buttons($buttons, false) !!}
                                             </td>
-                                    </tr>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -94,16 +92,13 @@
 @section('pageScript')
 <script>
 
-    var isMessage = "{{ session('customerMsg') }}";
-    if(isMessage){
-        messages.saved("Customer", isMessage);
+    var poSuccessMsg = "{{ session('poSuccessMsg') }}";
+    var poErrorMsg = "{{ session('poErrorMsg') }}";
+    if(poSuccessMsg){
+        messages.saved("Purchase Order", poSuccessMsg);
     }
-
-  $(function () {
-    $("#customersTable").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-    //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#customersTable_wrapper .col-md-6:eq(0)');
-  });
+    if(poErrorMsg){
+        messages.error("Purchase Order", poErrorMsg);
+    }
 </script>
 @endsection

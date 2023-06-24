@@ -69,8 +69,14 @@ class HomeController extends Controller
         });
         $userType = [];
         $tblUser = User::getTableName();
-        $source = User::where('id','!=', Auth::user()->id)->where([$tblUser.'.status' => 1,$tblUser.'.role_id' => User::ROLE_CUSTOMER]);
-
+        $source = User::where('id','!=', Auth::user()->id)->where([$tblUser.'.status' => 1]);
+        if(array_key_exists('user_type',$request->all())){
+            if($request->get('user_type') == 'vendor'){
+                $source->where($tblUser.'.role_id', User::ROLE_VENDOR);
+            }else{
+                $source->where($tblUser.'.role_id', User::ROLE_CUSTOMER);
+            }
+        }
 
         if ($searchTerm !== '' && strlen($searchTerm) > 0) {
             $source->where(function ($query) use ($searchTerm,$tblUser) {
