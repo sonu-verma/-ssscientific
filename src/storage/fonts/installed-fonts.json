@@ -16,5 +16,8 @@
     },
     "poppins extrabold": {
         "800": "poppins-extrabold-800_545299f8b6787c504bb796323596dec2"
+    },
+    "glyphicons halflings": {
+        "normal": "glyphicons_halflings_normal_3c9523218297e22d7ceded84dbefb792"
     }
 }

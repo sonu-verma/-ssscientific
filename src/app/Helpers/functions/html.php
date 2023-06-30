@@ -347,6 +347,17 @@ if (!function_exists('button_list')) {
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'top'
                 ]
+            ],
+            'download' => [
+                'icon' => 'fa fa-download',
+                'label' => 'Download',
+                'attributes' => [
+                    'href' => '#!',
+                    'class' => 'btn btn-danger btn-mini waves-effect waves-light',
+                    'title' => 'Download',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'top'
+                ]
             ]
         ];
     }

@@ -78,7 +78,7 @@
 </table>
 </span>
 </p>
-<h1 style="padding-top: 1pt;text-align:center; font-size:13pt">QUOTATION</h1>
+<h1 style="padding-top: 1pt;text-align:center; font-size:13pt">PURCHASE ORDER</h1>
 <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
 <p style="text-indent: 0pt;text-align: left;"><br/></p>
 <table class='center table-quotation'>
@@ -90,19 +90,21 @@
     <tr>
         <td colspan='4'>
             <p>
-                {{ $model->user->full_name }} <br />
-                {{ $model->property_address }}
+                {{ $purchaseOrder->vendor->full_name }} <br />
             </p>
         </td>
-        <td colspan='4'><p>QTN.No.: {{ $model->quote_no }}</p></td>
+        <td colspan='4'>
+            <p>PO.No.: {{ $purchaseOrder->po_no }}</p>
+            <p>Date : {{ date('d-m-Y',strtotime($purchaseOrder->created_at)) }}</p>
+        </td>
     </tr>
 
 
     <tr>
-        <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">CONTACT PERSON: {{ $model->user->full_name }}</td>
+        <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">Kind ATTN.: {{ $purchaseOrder->attn_no }}</td>
     </tr>
     <tr>
-        <td  class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">MOBILE: {{ $model->user->phone_number }}<span style="padding-right: 120px"></span> Email:{{ $model->user->email }}</td>
+        <td  class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">MOBILE: {{ $purchaseOrder->vendor->phone_number }}<span style="padding-right: 120px"></span> Email:{{ $purchaseOrder->vendor->email }}</td>
     </tr>
     <tr>
         <th>S/N</th>
@@ -110,72 +112,32 @@
         <th>HSN Code</th>
         <th colspan='2'>Description of goods</th>
         <th>Qty</th>
-        <th>Unit {{ $model->currency_type }}</th>
-        <th>Amount {{ $model->currency_type }}</th>
+        <th>Unit</th>
+        <th>Amount</th>
     </tr>
 
     <!-- Repeatable -->
-    @if($model && $model->items)
-        @foreach($model->items as $item)
+    @if($purchaseOrder && $purchaseOrder->products)
+        @foreach( $purchaseOrder->products as $product)
             <tr>
                 <td width="10px">S/N</td>
                 <td>P/N</td>
                 <td>HSN Code</td>
-                <td colspan='2'>{{ $item->product->name }}</td>
-                <td>{{ $item->quantity }}</td>
-                <td>{{ $item->asset_value }}</td>
-                <td>{{ $item->asset_value }}</td>
+                <td colspan='2'>{{ $product->product->name }}</td>
+                <td>1</td>
+                <td>{{ $product->product->sale_price }}</td>
+                <td>{{ $product->product->sale_price }}</td>
             </tr>
         @endforeach
     @endif
     <!-- repeatable -->
 
     <tr>
-        <td colspan='4'>
-            <p>Bank Account Details<br>
-                UNION BANK OF INDIA<br>
-                WADALA (EAST) BRANCH<br>
-                JUPITER BLDG., WADALA (EAST)<br>
-                SHANKARMISTRY ROAD,<br>
-                MUMBAI - 400037<br>
-                A/C No.: 583505080000001<br>
-                IFSC: UBIN0558354<br>
-            </p>
-        </td>
-        <td colspan='4'>
-            <p>
-                Place the Order to:<br>
-                S. S Scientific<br>
-                Shop No. 11, Jamal Mansion,<br>
-                Navroji Hill Road No. 1, Dongri,<br>
-                Mumbai - 400 009<br>
-                Contact No.: Suresh Samala<br>
-                Email: ssuresh@ssscientific.net<br>
-                Mobile No.: +91 9833241875<br>
-            </p>
+        <td colspan='8'>
+            Terms & Conditions
         </td>
     </tr>
 
-    <tr>
-        <td colspan='6' class='no-border' >Payment Terms: Ex-Warehouse</td>
-        <td colspan='2'></td>
-    </tr>
-    <tr>
-        <td colspan='6' class='no-border' >Delivery Period: IGST 18%</td>
-        <td colspan='2'></td>
-    </tr>
-    <tr>
-        <td colspan='6' class='no-border' >Installation: CGST</td>
-        <td colspan='2'></td>
-    </tr>
-    <tr>
-        <td colspan='6' class='no-border' >Freight: SGST</td>
-        <td colspan='2'></td>
-    </tr>
-    <tr>
-        <td colspan='6' class='no-border' >Validity - 90 Days TOTAL FOR, DESTINATION</td>
-        <td colspan='2'></td>
-    </tr>
     <tr>
         <td colspan='8' class='left-align no-border'>
             <br>

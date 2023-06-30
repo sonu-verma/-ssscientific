@@ -392,31 +392,6 @@ class QuoteController extends Controller
         }
     }
 
-    public function downloadInvoice(Request $request,$quote_id){
-        $type = $request->get('type');
-        $layout = true;
-        if ($type == 'html') {
-            $layout = false;
-        }
-        $var = [
-            'title' => 'Testing Page Number In Body',
-            'layout' => $layout,
-            'model' => ['test' => 'test'],
-        ];
-        $page = 'admin.pdf.invoice';
-        $prefix='Quote';
-
-        if($type == 'pdf'){
-            $pdf = \App::make('dompdf.wrapper');
-            $pdf->getDomPDF()->set_option("enable_php", true);
-            $pdf->loadView($page, $var);
-            return $pdf->download(strtoupper($prefix).'-'.time().'-' . $quote_id . '.pdf');
-
-        }else{
-            return view($page, $var);
-        }
-    }
-
     public function changeStatus(Request $request,$quote_id){
         $quoteNo = $quote_id;
         $quotes = Quote::where('id',$quoteNo)->get()->first();

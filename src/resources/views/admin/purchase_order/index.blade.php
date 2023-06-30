@@ -66,6 +66,13 @@
                                                             'attributes' => [
                                                                 'href' => route('edit.purchaseOrder', ['purchaseOrderId' => $purchaseOrder->id]),
                                                             ]
+                                                        ],
+                                                        'download' => [
+                                                            'label' => 'Download',
+                                                            'attributes' => [
+                                                                'href' => route('po.download',['po_id' => $purchaseOrder->id,'type'=>'pdf']),
+                                                                'target' => '_blank'
+                                                            ]
                                                         ]
                                                     ];
                                                 @endphp

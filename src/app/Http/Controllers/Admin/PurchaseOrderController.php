@@ -133,4 +133,32 @@ class PurchaseOrderController extends Controller
         return response()->json($result);
     }
 
+    public function downloadPurchaseOrder(Request $request,$po_id){
+        $type = $request->get('type');
+        $layout = true;
+        if ($type == 'html') {
+            $layout = false;
+        }
+
+        $purchaseOrder = PurchaseOrder::where('id', $po_id)->with('vendor')->with('products')->get()->first();
+
+        $var = [
+            'title' => 'Testing Page Number In Body',
+            'layout' => $layout,
+            'purchaseOrder' => $purchaseOrder
+        ];
+        $page = 'admin.pdf.purchase_order';
+        $prefix='PurchaseOrder';
+
+        if($type == 'pdf'){
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->getDomPDF()->set_option("enable_php", true);
+            $pdf->loadView($page, $var);
+            return $pdf->download(strtoupper($prefix).'-'.time().'-' . $purchaseOrder->po_no . '.pdf');
+
+        }else{
+            return view($page, $var);
+        }
+    }
+
 }

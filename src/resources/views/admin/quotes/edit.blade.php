@@ -280,10 +280,10 @@
                                     <button class="btn btn-success pull-right m-l-10"
                                             type="button" style="display: {{ ($model->action_type == \App\Models\Admin\Quote::ACTION_STATUS_APPROVED)?'inline':'none' }}">Quote Approved
                                     </button>
-                                    <a class="btn btn-primary pull-right m-l-10" id="invoiceDownload"
-                                       target="_blank" href="{{ route('invoice.download',['quote_id' => $model->id,'type'=>'pdf']) }}" style="display: {{ ($model->action_type == \App\Models\Admin\Quote::ACTION_STATUS_APPROVED)?'inline-block':'none' }};margin-right:5px;">
-                                        Download Invoice
-                                    </a>
+{{--                                    <a class="btn btn-primary pull-right m-l-10" id="invoiceDownload"--}}
+{{--                                       target="_blank" href="{{ route('invoice.download',['quote_id' => $model->id,'type'=>'pdf']) }}" style="display: {{ ($model->action_type == \App\Models\Admin\Quote::ACTION_STATUS_APPROVED)?'inline-block':'none' }};margin-right:5px;">--}}
+{{--                                        Download Invoice--}}
+{{--                                    </a>--}}
                                     <button class="btn btn-success pull-right m-l-10 approvedButton"
                                             type="button" data-toggle="modal" data-target="#confirmApprovalModal"  style="display: {{ !$model->action_type?'inline-block':'none' }}">Approve Quote
                                     </button>

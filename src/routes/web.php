@@ -79,7 +79,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/quote/update/{quote}', 'update')->name('quote.update');
         Route::get('/quote/edit/{id}', 'edit')->name('quote.edit');
         Route::get('/quote/downloadQuote/{quote_id}', 'downloadQuote')->name('quote.download');
-        Route::get('/invoice/download/{quote_id}', 'downloadInvoice')->name('invoice.download');
         Route::post('/quote/change-status/{quote_id}', 'changeStatus')->name('quote.changeStatus');
     });
     Route::controller(ProductCartItemsController::class)->group(function(){
@@ -94,6 +93,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/invoice/edit/{invoice_id}','edit')->name('edit.invoice');
         Route::post('/invoice/update','update')->name('update.invoice');
         Route::get('/invoice/delete/{invoice}','destroy')->name('delete.invoice');
+        Route::get('/invoice/download/{invoice_id}', 'downloadInvoice')->name('invoice.download');
     });
     Route::controller(PurchaseOrderController::class)->group(function(){
         Route::get('/purchase-orders','index')->name('purchase.orders');
@@ -103,6 +103,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/purchase-order/edit/{purchaseOrderId}','edit')->name('edit.purchaseOrder');
         Route::post('/purchase-order/update/{purchaseOrder}','update')->name('update.purchaseOrder');
         Route::post('/purchase-order/details','getPurchseOrder')->name('po.getPurchseOrder');
+        Route::get('/purchase-order/download/{po_id}', 'downloadPurchaseOrder')->name('po.download');
     });
 });
 

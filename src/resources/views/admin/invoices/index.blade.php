@@ -66,6 +66,13 @@
                                                             'attributes' => [
                                                                 'href' => route('edit.invoice', ['invoice_id' => $invoice->id]),
                                                             ]
+                                                        ],
+                                                        'download' => [
+                                                            'label' => 'Download',
+                                                            'attributes' => [
+                                                                'href' => route('invoice.download',['invoice_id' => $invoice->id,'type'=>'pdf']),
+                                                                'target' => '_blank'
+                                                            ]
                                                         ]
                                                     ];
                                                 @endphp
