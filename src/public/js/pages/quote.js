@@ -169,6 +169,7 @@ var itemlist = {
         }
     },
 }
+
 $(document).on('click','#quoteFormBtn',function(e){
     e.preventDefault();
     $(this).attr('disabled',true);
@@ -214,6 +215,7 @@ $(document).on('click','#quoteFormBtn',function(e){
         }
     });
 });
+
 function fillBillingAddress(){
 
     if($("#billingChk").prop('checked') == true){
@@ -383,6 +385,7 @@ function getUserDetails(val,type, isUpdate = false){
         }
     });
 }
+
 function searchProduct(val,type, isUpdate = false){
     var sku = val;
     if(sku=='' || sku==null){

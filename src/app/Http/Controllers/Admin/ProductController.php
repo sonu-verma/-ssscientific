@@ -11,7 +11,7 @@ use Illuminate\Pagination\Paginator;
 class ProductController extends Controller
 {
     public function index(){
-        $products = Product::all();
+        $products = Product::with('category')->get()->all();
         return view('admin.products.index',[
             'products' => $products
         ]);

@@ -24,25 +24,30 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Add Invoice</h5>
+                            <h5>Edit Invoice</h5>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form name="invoiceForm" id="invoiceForm" action="{{ route('store.invoice') }}" method="POST" autocomplete="off">
+                            <form name="invoiceForm" id="invoiceForm" action="{{ route('update.invoice') }}" method="POST" autocomplete="off">
                                 {{ csrf_field() }}
+                                <input type="hidden" value="{{ $model->id }}" name="invoice_id">
                                 <div class="proposal-boxx--View">
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="text-align: left;">
-                                            <label class="">Select Quote<span class="validateClass">*</span></label>
+                                            <label class="">Select Quote {{  $model->quote->quote_no }}<span class="validateClass">*</span></label>
                                             <select data-resource="quote_id"
                                                     class="form-control"
                                                     style="width: 100%;"
                                                     name="quote_id"
                                                     id="quoteNo"
-                                                    data-parent="#invoiceForm"
-{{--                                                    onchange="return getQuoteDetails(this.value,1)"--}}
+{{--                                                    data-parent="#invoiceForm"--}}
                                                     required>
                                                 <option value="">Select Quote</option>
+                                                @if(isset($model->quote))
+                                                    <option value="{{$model->quote->id}}"
+                                                            selected>{{ $model->quote->quote_no }}
+                                                    </option>
+                                                @endif
                                             </select>
                                         </div>
                                         <div class="col-md-4" style="text-align: left;">
@@ -56,22 +61,27 @@
 {{--                                                    onchange="return getQuoteDetails(this.value,1)"--}}
                                                     required>
                                                 <option value="">Select Purchase Order</option>
+                                                @if(isset($model->purchaseOrder))
+                                                    <option value="{{$model->purchaseOrder->id}}"
+                                                            selected>{{ $model->purchaseOrder->po_no }}
+                                                    </option>
+                                                @endif
                                             </select>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="gst_no">GST NO:</label>
-                                            <input type="text" name="gst_no" id="gst_no" class="form-control fixedOption">
+                                            <input type="text" name="gst_no" id="gst_no" value="{{ $model->gst_no }}" class="form-control fixedOption">
                                         </div>
                                         <div class="col-md-4">
                                             <label for="freight">Freight Rate:</label>
-                                            <input type="text" name="freight" id="freight" class="form-control fixedOption">
+                                            <input type="text" name="freight" id="freight" value="{{ $model->freight }}" class="form-control fixedOption">
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Status:</label>
                                             <select name="status" id="status" class="form-control" required>
                                                 <option value="">Select Option</option>
-                                                <option value="1">Active</option>
-                                                <option value="2">Inactive</option>
+                                                <option value="1" {{ $model->status == 1 ? 'selected' : '' }}>Active</option>
+                                                <option value="2" {{ $model->status == 2 ? 'selected' : '' }}>Inactive</option>
                                             </select>
                                         </div>
                                     </div>

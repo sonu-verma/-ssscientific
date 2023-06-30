@@ -2,11 +2,12 @@
 
 namespace App\Models\Admin;
 
+use App\Models\BaseModel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PurchaseOrder extends Model
+class PurchaseOrder extends BaseModel
 {
     use HasFactory;
 

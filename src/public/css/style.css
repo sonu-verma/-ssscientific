@@ -56,3 +56,11 @@ button.btn {
 .error{
     color:red;
 }
+
+.btn {
+    background-color: orange;
+}
+
+.main-sidebar{
+    background-color: #09445a !important;
+}

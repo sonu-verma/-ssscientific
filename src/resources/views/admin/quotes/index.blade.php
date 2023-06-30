@@ -61,12 +61,6 @@
 @section('pageScript')
 <script>
     var quoteAjax = "{{ route('ajax.quotes') }}";
-  // $(function () {
-  //   $("#quoteTable").DataTable({
-  //     "responsive": true, "lengthChange": false, "autoWidth": false,
-  //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-  //   }).buttons().container().appendTo('#quoteTable_wrapper .col-md-6:eq(0)');
-  // });
 </script>
     <script src="{{ asset('js/pages/quote.js') }}"></script>
 @endsection

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PurchaseOrderController;
 use App\Http\Controllers\Admin\QuoteController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\DashboardController;
+use \App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,8 +58,13 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/role/store','store')->name('store.role');
             Route::post('/role/update','update')->name('update.role');
         });
-        Route::controller(RolesController::class)->group(function () {
+        Route::controller(CategoryController::class)->group(function () {
             Route::get('/categories','index')->name('categories');
+            Route::get('/category/create','create')->name('create.category');
+            Route::post('/category/store','store')->name('store.category');
+            Route::get('/category/delete/{category}','destroy')->name('delete.category');
+            Route::get('/category/edit/{category}','edit')->name('edit.category');
+            Route::post('/category/update','update')->name('update.category');
         });
     });
     Route::controller(DashboardController::class)->group(function () {
@@ -85,6 +91,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/invoices','index')->name('invoices');
         Route::get('/invoice/create','create')->name('create.invoice');
         Route::post('/invoice/store','store')->name('store.invoice');
+        Route::get('/invoice/edit/{invoice_id}','edit')->name('edit.invoice');
+        Route::post('/invoice/update','update')->name('update.invoice');
+        Route::get('/invoice/delete/{invoice}','destroy')->name('delete.invoice');
     });
     Route::controller(PurchaseOrderController::class)->group(function(){
         Route::get('/purchase-orders','index')->name('purchase.orders');
@@ -93,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/purchase-order/delete','destroy')->name('delete.purchaseOrder');
         Route::get('/purchase-order/edit/{purchaseOrderId}','edit')->name('edit.purchaseOrder');
         Route::post('/purchase-order/update/{purchaseOrder}','update')->name('update.purchaseOrder');
+        Route::post('/purchase-order/details','getPurchseOrder')->name('po.getPurchseOrder');
     });
 });
 

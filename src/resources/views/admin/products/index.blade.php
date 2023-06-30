@@ -30,15 +30,15 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="customersTable" class="table table-bordered table-striped">
+                            <table id="productTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th class="subj_name">Id</th>
                                         <th>Name</th>
+                                        <th>Category</th>
                                         <th>SKU</th>
                                         <th>Slug</th>
                                         <th>Status</th>
-                                        <th>Created Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -47,10 +47,10 @@
                                     <tr>
                                             <td class="subj_name">{{ $product->id }}</td>
                                             <td>{{ $product->name }}</td>
+                                            <td>{{ $product->category?$product->category->category_name:'NA' }}</td>
                                             <td>{{ $product->sku }}</td>
                                             <td>{{ $product->slug }}</td>
-                                            <td>{{ $product->status }}</td>
-                                            <td>{{ $product->created_at }}</td>
+                                            <td>{{ status($product->status) }}</td>
                                             <td>
                                                 @php
                                                     $buttons = [
@@ -102,10 +102,10 @@
     }
 
   $(function () {
-    $("#customersTable").DataTable({
+    $("#productTable").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
     //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#customersTable_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#productTable_wrapper .col-md-6:eq(0)');
   });
 </script>
 @endsection
